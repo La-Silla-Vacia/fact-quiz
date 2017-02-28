@@ -7,7 +7,7 @@
 // import TestUtils from 'react-addons-test-utils';
 import createComponent from 'helpers/shallowRenderHelper';
 
-import VoteButtonComponent from 'components//VoteButtonComponent.js';
+import VoteButtonComponent from 'components//VoteArea.js';
 
 describe('VoteButtonComponent', () => {
   let component;

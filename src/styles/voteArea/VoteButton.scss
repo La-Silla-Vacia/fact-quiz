@@ -1,0 +1,154 @@
+@import "../variables";
+
+$breakpoint: 34em;
+
+.Vote-button {
+  background-color: $brand-white;
+  border: 1px solid $brand-color;
+  border-radius: $buttonSize;
+  width: $buttonSize;
+  height: $buttonSize;
+  padding: 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border: 1px solid $brand-color;
+    border-radius: $innerButtonSize;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    transition: $transition-duration;
+    opacity: 0;
+  }
+
+  &__list-item {
+    opacity: 1;
+    transition: $transition-duration;
+    transition-delay: 1s;
+    &--hidden {
+      opacity: 0;
+      width: 0;
+    }
+  }
+
+  &:focus,
+  &--selected {
+    outline: none;
+    &::before {
+      width: $innerButtonSize;
+      height: $innerButtonSize;
+      opacity: 1;
+    }
+  }
+
+  &--selected {
+    //transform: scale(1.2);
+    color: $brand-color;
+    animation: blink 0.6s;
+    &::before {
+      background-color: $brand-color;
+      animation: blinkBg 0.6s;
+    }
+  }
+
+  &--this-is-it,
+  &--this-is-wrong {
+    color: #00FF99;
+    transition-delay: 0.6s;
+  }
+
+  &--this-is-wrong {
+    color: red;
+  }
+
+  &__content {
+    position: absolute;
+    left: 50%;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    top: 1.5em;
+
+    @media screen and (max-width: $breakpoint) {
+      position: relative;
+      top: -0.15em;
+      left: 2em;
+      transform: inherit;
+    }
+  }
+}
+
+@keyframes blink {
+  0% {
+    color: $text-color;
+  }
+  10% {
+    color: $brand-color;
+  }
+  20% {
+    color: $text-color;
+  }
+  30% {
+    color: $brand-color;
+  }
+  40% {
+    color: $text-color;
+  }
+  50% {
+    color: $brand-color;
+  }
+  60% {
+    color: $text-color;
+  }
+  60% {
+    color: $brand-color;
+  }
+  80% {
+    color: $text-color;
+  }
+  90% {
+    color: $brand-color;
+  }
+  100% {
+    color: $text-color;
+  }
+}
+
+@keyframes blinkBg {
+  0% {
+    background-color: $text-color;
+  }
+  10% {
+    background-color: $brand-color;
+  }
+  20% {
+    background-color: $text-color;
+  }
+  30% {
+    background-color: $brand-color;
+  }
+  40% {
+    background-color: $text-color;
+  }
+  50% {
+    background-color: $brand-color;
+  }
+  60% {
+    background-color: $text-color;
+  }
+  60% {
+    background-color: $brand-color;
+  }
+  80% {
+    background-color: $text-color;
+  }
+  90% {
+    background-color: $brand-color;
+  }
+  100% {
+    background-color: $text-color;
+  }
+}

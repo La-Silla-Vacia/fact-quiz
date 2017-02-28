@@ -2,9 +2,9 @@ $brand-color: #44a5db;
 $brand-grey: #6f7372;
 $brand-lightgrey: #F8F8F8;
 $brand-lightgrey-dark: #979797;
-$brand-black: #2d3132;
+$brand-black: #444848;
 $brand-white: #fff;
-$text-color: var($brand-black);
+$text-color: $brand-black;
 $font-family-base: 'Roboto', Helvetica, sans-serif;
 $font-family-display: 'Roboto Slab', Georgia, sans-serif;
 $font-family-serif: 'Georgia', Times new roman, serif;
@@ -15,7 +15,8 @@ $transition-duration: 0.2s;
  * Layout
  * ======================================================================== */
 
-/* $max-content-width: 1000px; */
+$buttonSize: 1.25em;
+$innerButtonSize: 0.75em;
 
 /*
  * Media queries breakpoints

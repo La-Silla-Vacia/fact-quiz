@@ -4,7 +4,7 @@ import React from 'react';
 import cx from 'classnames';
 import Button from './VoteButton';
 
-require('styles/VoteArea/VoteArea.scss');
+require('styles/VoteArea.scss');
 
 class VoteButtonComponent extends React.Component {
 
@@ -41,7 +41,7 @@ class VoteButtonComponent extends React.Component {
     super();
 
     this.state = {
-      selected: 99
+      selected: false
     };
 
     this.setInchequable = this.setInchequable.bind(this);
@@ -61,7 +61,7 @@ class VoteButtonComponent extends React.Component {
     return this.props.buttons.map((button, index) => {
       let active = false,
           thisIsIt = false;
-      if (this.state.selected == button.value) {
+      if (this.state.selected == button.value && this.props.showResult) {
         active = true;
       }
 
@@ -92,9 +92,12 @@ class VoteButtonComponent extends React.Component {
 
     return (
       <div className='Vote-area'>
-        <h4>¿Qué opinas?</h4>
+        <h4 className="Vote-area__title">¿Qué opinas?</h4>
         <div className="Vote-area__form-container">
-          <div className='Vote-area__slide'></div>
+          <div className={cx(
+            'Vote-area__slide',
+            {'Vote-area__slide--small': this.props.showResult}
+          )}></div>
           <ul className={cx(
             'Vote-area__button-list',
             {'Vote-area__button-list--small': this.props.showResult}
@@ -113,7 +116,7 @@ class VoteButtonComponent extends React.Component {
   }
 }
 
-VoteButtonComponent.displayName = 'VoteButtonComponent';
+VoteButtonComponent.displayName = 'VoteButton';
 
 // Uncomment properties you need
 // VoteButtonComponent.propTypes = {};

@@ -1,4 +1,4 @@
-@import "../variables";
+@import "variables";
 
 $breakpoint: 34em;
 
@@ -10,6 +10,7 @@ $breakpoint: 34em;
   height: $buttonSize;
   padding: 0;
   position: relative;
+  transition: top 1s;
 
   &::before {
     content: '';
@@ -27,11 +28,12 @@ $breakpoint: 34em;
 
   &__list-item {
     opacity: 1;
+    width: $buttonSize;
     transition: $transition-duration;
-    transition-delay: 1s;
     &--hidden {
       opacity: 0;
       width: 0;
+      transition-delay: 1s;
     }
   }
 
@@ -55,22 +57,37 @@ $breakpoint: 34em;
     }
   }
 
-  &--this-is-it,
-  &--this-is-wrong {
+  &--this-is-it {
     color: #00FF99;
     transition-delay: 0.6s;
+    cursor: default;
+    span {
+      top: 0;
+      color: $brand-white;
+      background-color: #44a5db;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-family: 'Roboto Condensed', sans-serif;
+      padding: 8px 20px;
+      border-radius: 16px;
+      letter-spacing: 2px;
+      transform: translateX(-50%) translateY(-20%);
+      transition-delay: 1s;
+    }
   }
 
-  &--this-is-wrong {
-    color: red;
+  &__this-is-it .Vote-button__content {
+      top: 0;
   }
 
   &__content {
     position: absolute;
     left: 50%;
     white-space: nowrap;
+    transition: $transition-duration 0s;
     transform: translateX(-50%);
     top: 1.5em;
+    background-color: $brand-white;
 
     @media screen and (max-width: $breakpoint) {
       position: relative;

@@ -1,9 +1,12 @@
-@import "../variables";
+@import "variables";
 $breakpoint: 34em;
 .Vote-area {
   position: relative;
-  border-top: 1px solid $brand-lightgrey-dark;
   padding: 1em 0 1.5em;
+
+  &__title {
+    margin-bottom: 1em;
+  }
 
   &__form-container {
     position: relative;
@@ -16,7 +19,21 @@ $breakpoint: 34em;
     position: absolute;
     top: $buttonSize / 2;
     transform: translateY(-50%);
+    transition: all $transition-duration 1s;
     border-radius: $buttonSize;
+
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+    }
+
+    &--small {
+      height: 1px;
+      &::before {
+        background-color: $brand-lightgrey-dark;
+      }
+    }
 
     @media screen and (max-width: $breakpoint) {
       width: $buttonSize;
@@ -33,7 +50,7 @@ $breakpoint: 34em;
     justify-content: space-between;
     padding: 0 0 1.5em 0;
     margin: 0 auto;
-    transition: .4s 1s;
+    transition: .4s 0s;
     width: 42em;
 
     @media screen and (max-width: $breakpoint) {
@@ -41,7 +58,8 @@ $breakpoint: 34em;
     }
 
     &--small {
-      width: 1.5em;
+      width: $buttonSize;
+      transition-delay: 1s;
     }
   }
 

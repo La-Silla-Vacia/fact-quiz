@@ -11,19 +11,20 @@ body {
 
 .index {
   max-width: $screen-lg-min;
-  margin: 1em auto;
+  margin: 0 auto;
   padding: 0 1em 2em;
   position: relative;
   background-color: #fff;
-  border-radius: 3px;
   overflow: hidden;
 
   &__title {
-    text-align: center;
-    margin: 0 -16px;
-    color: $brand-white;
-    background-color: $brand-grey;
-    padding: 0.5em;
+    color: $text-color;
+    padding: 1em 0 0.5em;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 2em;
+    border-bottom: 1px solid $brand-grey;
+    margin: 0.75em;
   }
 
 }

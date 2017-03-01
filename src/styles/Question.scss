@@ -9,6 +9,8 @@
     position: relative;
     line-height: 1.5;
     margin-left: 0;
+    width: 100%;
+    max-width: 23em;
 
     &::before,
     &::after {
@@ -60,5 +62,12 @@
     line-height: 1.8;
     font-size: 1.1em;
     font-weight: 300;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 2s;
+  }
+
+  &__explanation--hidden {
+    opacity: 0;
   }
 }

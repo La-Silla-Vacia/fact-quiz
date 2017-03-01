@@ -3,7 +3,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-require('styles/voteArea/VoteButton.scss');
+require('styles/VoteButton.scss');
 
 class ButtonComponent extends React.Component {
 
@@ -33,8 +33,7 @@ class ButtonComponent extends React.Component {
           className={cx(
             'Vote-button',
             {'Vote-button--selected': this.props.active},
-            {'Vote-button--this-is-it': this.props.thisIsIt},
-            {'Vote-button--this-is-wrong': this.props.thisIsIt == 2}
+            {'Vote-button--this-is-it': this.props.thisIsIt == 1}
             )}
           onClick={this.handleClick}
         >
@@ -47,7 +46,7 @@ class ButtonComponent extends React.Component {
   }
 }
 
-ButtonComponent.displayName = 'VoteAreaButtonComponent';
+ButtonComponent.displayName = 'Vote-Button';
 
 // Uncomment properties you need
 // ButtonComponent.propTypes = {};

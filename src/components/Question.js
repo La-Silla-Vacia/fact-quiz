@@ -32,10 +32,8 @@ class QuestionComponent extends React.Component {
   }
 
   getResult() {
-
-    if (!this.state.showingResult && !this.state.showingResultTimer) {
+    if (!this.state.showingResult && !this.state.showingResultTimer && this.state.answered) {
       setTimeout(() => {
-        console.log('asdf');
         this.setState({showingResult: true})
       }, 1000);
     }
@@ -51,7 +49,7 @@ class QuestionComponent extends React.Component {
     );
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(newprops) {
     this.setState({
       currentQuestion: this.props.id,
       answered: false,
@@ -59,6 +57,10 @@ class QuestionComponent extends React.Component {
       showingResult: false,
       showingResultTimer: false
     });
+
+    if (newprops.id) {
+      location.hash = '#' + (newprops.id + 1);
+    }
   }
 
   render() {
@@ -67,9 +69,9 @@ class QuestionComponent extends React.Component {
       showResult = false;
 
     if (this.state.answered) {
-      result = this.getResult();
       showResult = true;
     }
+    result = this.getResult();
 
     return (
       <div className="Question">

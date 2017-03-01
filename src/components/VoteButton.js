@@ -23,30 +23,23 @@ class ButtonComponent extends React.Component {
 
   render() {
     return (
-      <li
+      <button
         className={cx(
-          'Vote-button__list-item',
-          {'Vote-button__list-item--hidden': this.props.thisIsIt == 2}
+          'VoteButton',
+          {'VoteButton--selected': this.props.active},
+          {'VoteButton--this-is-it': this.props.thisIsIt == 1}
         )}
+        onClick={this.handleClick}
       >
-        <button
-          className={cx(
-            'Vote-button',
-            {'Vote-button--selected': this.props.active},
-            {'Vote-button--this-is-it': this.props.thisIsIt == 1}
-            )}
-          onClick={this.handleClick}
-        >
-            <span className="Vote-button__content">
+            <span className="VoteButton__content">
               {this.props.name}
             </span>
-        </button>
-      </li>
+      </button>
     );
   }
 }
 
-ButtonComponent.displayName = 'Vote-Button';
+ButtonComponent.displayName = 'VoteButton';
 
 // Uncomment properties you need
 // ButtonComponent.propTypes = {};

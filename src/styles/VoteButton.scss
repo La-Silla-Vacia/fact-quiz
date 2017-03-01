@@ -2,7 +2,7 @@
 
 $breakpoint: 34em;
 
-.Vote-button {
+.VoteButton {
   background-color: $brand-white;
   border: 1px solid $brand-color;
   border-radius: $buttonSize;
@@ -24,17 +24,6 @@ $breakpoint: 34em;
     transform: translateX(-50%) translateY(-50%);
     transition: $transition-duration;
     opacity: 0;
-  }
-
-  &__list-item {
-    opacity: 1;
-    width: $buttonSize;
-    transition: $transition-duration;
-    &--hidden {
-      opacity: 0;
-      width: 0;
-      transition-delay: 1s;
-    }
   }
 
   &:focus,

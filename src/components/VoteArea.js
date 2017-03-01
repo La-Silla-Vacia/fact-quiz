@@ -60,7 +60,7 @@ class VoteButtonComponent extends React.Component {
   getButtons() {
     return this.props.buttons.map((button, index) => {
       let active = false,
-          thisIsIt = false;
+        thisIsIt = false;
       if (this.state.selected == button.value && this.props.showResult) {
         active = true;
       }
@@ -74,13 +74,20 @@ class VoteButtonComponent extends React.Component {
       }
 
       return (
-        <Button
+        <li
+          className={cx(
+            'VoteArea__list-item',
+            {'VoteArea__list-item--hidden': thisIsIt == 2}
+          )}
           key={index}
-          active={active}
-          thisIsIt={thisIsIt}
-          callback={this.handleSelection}
-          {...button}
-        />
+        >
+          <Button
+            active={active}
+            thisIsIt={thisIsIt}
+            callback={this.handleSelection}
+            {...button}
+          />
+        </li>
       )
     });
   }
@@ -91,22 +98,31 @@ class VoteButtonComponent extends React.Component {
     if (this.state.selected === 7) inchequableActive = true;
 
     return (
-      <div className='Vote-area'>
-        <h4 className="Vote-area__title">¿Qué opinas?</h4>
-        <div className="Vote-area__form-container">
+      <div className='VoteArea'>
+        <h4 className="VoteArea__title">¿Qué opinas?</h4>
+        <div className="VoteArea__form-container">
           <div className={cx(
-            'Vote-area__slide',
-            {'Vote-area__slide--small': this.props.showResult}
+            'VoteArea__slide',
+            {'VoteArea__slide--small': this.props.showResult}
           )}></div>
           <ul className={cx(
-            'Vote-area__button-list',
-            {'Vote-area__button-list--small': this.props.showResult}
+            'VoteArea__button-list',
+            {'VoteArea__button-list--small': this.props.showResult}
           )}>
             {buttons}
           </ul>
-          <div className="Vote-area__footer">
-            <small>- O -</small>
-            <button onClick={this.setInchequable} className={cx('Vote-area__button', {'Vote-area__button--selected': inchequableActive })}>
+          <div className={cx(
+            'VoteArea__footer',
+            {'VoteArea__footer--hidden': this.props.showResult && this.props.score !== 7},
+            {'VoteArea__footer--this-is-it': this.props.showResult& this.props.score == 7}
+          )}>
+            {/*<small>- O -</small>*/}
+            <button onClick={this.setInchequable}
+                    className={cx(
+                      'VoteArea__button',
+                      {'VoteArea__button--selected': inchequableActive},
+                      {'VoteArea__button--this-is-it': this.props.score == 7 && this.props.showResult}
+                      )}>
               Inchequable
             </button>
           </div>

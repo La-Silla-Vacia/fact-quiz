@@ -1,6 +1,6 @@
 @import "variables";
 $breakpoint: 34em;
-.Vote-area {
+.VoteArea {
   position: relative;
   padding: 1em 0 1.5em;
 
@@ -19,7 +19,7 @@ $breakpoint: 34em;
     position: absolute;
     top: $buttonSize / 2;
     transform: translateY(-50%);
-    transition: all $transition-duration 1s;
+    transition: all $transition-duration;
     border-radius: $buttonSize;
 
     &::before {
@@ -30,6 +30,7 @@ $breakpoint: 34em;
 
     &--small {
       height: 1px;
+      transition-delay: 1s;
       &::before {
         background-color: $brand-lightgrey-dark;
       }
@@ -63,13 +64,40 @@ $breakpoint: 34em;
     }
   }
 
+  &__list-item {
+    opacity: 1;
+    width: $buttonSize;
+    transition: $transition-duration;
+    &--hidden {
+      opacity: 0;
+      width: 0;
+      transition-delay: 1s;
+    }
+  }
+
   &__footer {
     text-align: center;
     font-family: 'Lato', Helvetica, sans-serif;
     font-weight: 700;
     font-size: .75em;
+    transition: $transition-duration * 2;
     small {
       display: block;
+    }
+  }
+
+  &__footer--hidden {
+    opacity: 0;
+    margin-top: -4em;
+    transition-delay: 1s;
+  }
+
+  &__footer--this-is-it {
+    margin-top: -5.55em;
+    transition-delay: 1s;
+    position: relative;
+    small {
+      opacity: 0;
     }
   }
 
@@ -86,9 +114,14 @@ $breakpoint: 34em;
       outline: none;
     }
 
-    &--selected {
+    &--selected,
+    &--this-is-it {
       background-color: $brand-color;
       color: $brand-white;
+    }
+
+    &--this-is-it {
+      margin-top: 0;
     }
   }
 }

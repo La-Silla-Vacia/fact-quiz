@@ -27,4 +27,27 @@ body {
     margin: 0.75em;
   }
 
+  &__question-counter {
+    position: absolute;
+    font-family: 'Georgia', "Times New Roman", serif;
+    font-size: 2em;
+    right: 1.25em;
+    color: $brand-lightgrey-dark;
+    line-height: 0.7;
+    font-weight: lighter;
+  }
+
+  &__switch {
+    margin-top: .25em;
+    font-style: italic;
+    font-size: .75em;
+    text-align: right;
+  }
+
+  &__switch-question {
+    background: none;
+    border: none;
+    padding: 0.2em;
+  }
+
 }

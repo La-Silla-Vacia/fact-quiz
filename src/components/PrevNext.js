@@ -2,9 +2,16 @@
 
 import React from 'react';
 
-require('styles/PrevNext.css');
+require('styles/PrevNext.scss');
 
 class PrevNextComponent extends React.Component {
+
+  static defaultProps = {
+    show: {
+      prev: true,
+      next: true
+    }
+  };
 
   constructor() {
     super();
@@ -27,16 +34,16 @@ class PrevNextComponent extends React.Component {
       nextButton;
     if (this.props.show.prev) {
       prevButton = (
-        <button onClick={this.prev}>
-          Anterior
+        <button className="PrevNext__button PrevNext__button--prev" onClick={this.prev}>
+          &lt; Anterior
         </button>
       );
     }
 
     if (this.props.show.next) {
       nextButton = (
-        <button onClick={this.next}>
-          Siguiente
+        <button className="PrevNext__button PrevNext__button--next" onClick={this.next}>
+          Siguiente &gt;
         </button>
       )
     }

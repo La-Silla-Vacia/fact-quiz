@@ -6,10 +6,9 @@
 // Uncomment the following lines to use the react test utilities
 // import TestUtils from 'react-addons-test-utils';
 import createComponent from 'helpers/shallowRenderHelper';
+import ButtonComponent from 'components/VoteArea.js';
 
-import ButtonComponent from 'components/voteArea.js';
-
-describe('ButtonComponent', () => {
+describe('VoteAreaComponent', () => {
   let component;
 
   beforeEach(() => {
@@ -17,6 +16,6 @@ describe('ButtonComponent', () => {
   });
 
   it('should have its component name as default className', () => {
-    expect(component.props.className).to.equal('button-component');
+    expect(component.props.className).to.equal('VoteArea');
   });
 });

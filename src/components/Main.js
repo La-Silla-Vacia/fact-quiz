@@ -4,6 +4,7 @@ require('styles/App.scss');
 import React from 'react';
 import Question from './Question';
 import PrevNext from './PrevNext';
+import ReportCard from './ReportCard';
 
 class AppComponent extends React.Component {
 
@@ -74,44 +75,67 @@ class AppComponent extends React.Component {
   }
 
   render() {
+    const currentIndex = this.state.currentQuestionIndex;
+    const totalQuestions = this.state.questions.length;
+    const errorMessage = this.state.error;
+    const question = this.state.questions[currentIndex];
+    const answered = this.state.results[currentIndex];
 
-    let error = '';
-    if (this.state.error) {
-      error = (<h3>{this.state.error}</h3>)
-    }
+    let error = '',
+      reportCard = '',
+      questionObj = '';
+    const buttonsToShow = {prev: true, next: true};
+    if (errorMessage) error = (<h3>{errorMessage}</h3>);
 
-    let buttonsToShow = {prev: true, next: true};
-    if (this.state.currentQuestionIndex == 0) {
+    if (currentIndex == 0) {
       buttonsToShow.prev = false;
     }
-    if (this.state.currentQuestionIndex >= this.state.questions.length - 1) {
+
+    if (currentIndex >= totalQuestions ||
+      this.state.results.length <= currentIndex) {
       buttonsToShow.next = false;
     }
 
-    const question = this.state.questions[this.state.currentQuestionIndex];
-    let answered = this.state.results[this.state.currentQuestionIndex];
-
-    return (
-      <div className="index">
-        <h2 className="index__title">La Silla's Fact Quiz</h2>
-        {error}
-        <div className="index__question-counter">
-          {this.state.currentQuestionIndex + 1}/{this.state.questions.length}
-          <PrevNext
-            callback={this.prevNext}
-            show={buttonsToShow}
-            type="compact"
-          />
-        </div>
+    if (currentIndex >= totalQuestions) {
+      reportCard = (
+        <ReportCard
+          data={this.state.results}
+        />
+      )
+    } else {
+      questionObj = (
         <Question
           {...question}
           callback={this.saveData}
           answered={answered}
-        />
-        <PrevNext
-          callback={this.prevNext}
-          show={buttonsToShow}
-        />
+        >
+          <PrevNext
+            callback={this.prevNext}
+            show={buttonsToShow}
+            type="overlay"
+          />
+        </Question>
+      )
+    }
+
+    return (
+      <div className="index">
+        <div className="index__inner">
+          <h2 className="index__title">
+            La Silla's Fact Quiz
+          </h2>
+          {error}
+          <div className="index__question-counter">
+            {currentIndex + 1}/{totalQuestions}
+            <PrevNext
+              callback={this.prevNext}
+              show={buttonsToShow}
+              type="compact"
+            />
+          </div>
+          {reportCard}
+          {questionObj}
+        </div>
       </div>
     );
   }

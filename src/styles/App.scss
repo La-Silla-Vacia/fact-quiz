@@ -12,29 +12,33 @@ body {
 .index {
   max-width: 82rem;
   margin: 0 auto;
-  padding: 0 1em 2em;
+  padding: 0 0 2em;
   position: relative;
   background-color: #fff;
   overflow: hidden;
 
   &__title {
-    color: $text-color;
-    padding: 1em 0 0.5em;
     font-family: 'Lato', sans-serif;
-    font-weight: 600;
     font-size: 2em;
     border-bottom: 1px solid $brand-grey;
-    margin: 0.75em;
+    background-color: $brand-color;
+    color: $brand-white;
+    margin: 0;
+    padding: 0.75em;
+    font-weight: 600;
+    border-color: $brand-white;
+    text-align: right;
   }
 
   &__question-counter {
     position: absolute;
     font-family: 'Georgia', "Times New Roman", serif;
-    font-size: 2em;
-    right: 1.25em;
+    font-size: 1.75em;
+    right: 1em;
     color: $brand-lightgrey-dark;
     line-height: 0.7;
     font-weight: lighter;
+    margin-top: 1em;
   }
 
   &__switch {

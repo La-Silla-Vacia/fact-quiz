@@ -1,8 +1,9 @@
 @import "variables";
 
 .Question {
-  //background-color: $brand-lightgrey;
+  margin-top: 1.5em;
   padding: 0 1.5em 1.5em;
+  position: relative;
 
   &--already-answered {
     .VoteArea__list-item--hidden,
@@ -13,13 +14,18 @@
     }
   }
 
+  &__title {
+    color: $brand-lightgrey-dark
+  }
+
   &__quote {
     font-size: 1.5em;
     position: relative;
-    line-height: 1.5;
+    line-height: 1.85;
     margin-left: 0;
     width: 100%;
-    max-width: 23em;
+    max-width: 19em;
+    float: left;
 
     &::before,
     &::after {
@@ -34,6 +40,16 @@
       top: inherit;
       position: absolute;
     }
+  }
+
+  &__logo {
+    opacity: .2;
+    margin-left: 3em;
+    margin-bottom: 1em;
+  }
+
+  &__silla {
+    fill: $brand-color
   }
 
   &__score {
@@ -74,6 +90,8 @@
     overflow: hidden;
     opacity: 1;
     transition: opacity 1.2s;
+    max-width: 35em;
+    padding: 1em;
   }
 
   &__explanation--hidden {

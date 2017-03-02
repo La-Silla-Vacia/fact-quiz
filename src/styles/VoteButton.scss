@@ -76,7 +76,6 @@ $breakpoint: 34em;
     transition: $transition-duration 0s;
     transform: translateX(-50%);
     top: 1.5em;
-    background-color: $brand-white;
 
     @media screen and (max-width: $breakpoint) {
       position: relative;

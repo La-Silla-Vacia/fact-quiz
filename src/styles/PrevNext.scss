@@ -4,8 +4,17 @@
   padding: 1em;
 
   &--compact {
-    padding: 0.2em 0;
+    padding: 0.35em 0;
     text-align: right;
+    position: relative;
+    z-index: 1;
+  }
+
+  &--overlay {
+    position: absolute;
+    margin-top: -3em;
+    width: calc(100% - 3em);
+    padding: 0;
   }
 
   &--compact .PrevNext__button {
@@ -13,6 +22,13 @@
     border: none;
     font-family: 'Georgia', "Times New Roman", serif;
     color: $brand-lightgrey-dark;
+    position: absolute;
+    &--next {
+      right: 0;
+    }
+    &--prev {
+      right: 1.25em;
+    }
   }
 
   &__button {

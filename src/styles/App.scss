@@ -10,7 +10,7 @@ body {
 }
 
 .index {
-  max-width: $screen-lg-min;
+  max-width: 82rem;
   margin: 0 auto;
   padding: 0 1em 2em;
   position: relative;
@@ -42,12 +42,6 @@ body {
     font-style: italic;
     font-size: .75em;
     text-align: right;
-  }
-
-  &__switch-question {
-    background: none;
-    border: none;
-    padding: 0.2em;
   }
 
 }

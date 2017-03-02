@@ -16,7 +16,9 @@ class QuestionComponent extends React.Component {
       current: false,
       answered: false,
       showingResult: false,
-      showingResultTimer: false
+      showingResultTimer: false,
+      result: false,
+      alreadyAnswered: false
     };
 
     this.handleSelection = this.handleSelection.bind(this);
@@ -28,7 +30,35 @@ class QuestionComponent extends React.Component {
       answered: true
     });
 
-    // if (this.props.score == id) alert('good job!');
+    if (this.props.score == id) {
+      this.setState({result: true});
+    } else {
+      this.setState({result: false});
+    }
+
+    this.submitResult(id);
+  }
+
+  submitResult(id) {
+
+    let difference = 8;
+    if (id < 8) {
+      difference = QuestionComponent.getDifference(id, this.props.score)
+    }
+
+
+    this.props.callback({
+      question: this.props.id,
+      answer: id,
+      difference
+    });
+  }
+
+  static getDifference(num1, num2) {
+    if (num1 > num2)
+      return num1 - num2;
+    else
+      return num2 - num1;
   }
 
   getResult() {
@@ -50,12 +80,23 @@ class QuestionComponent extends React.Component {
   }
 
   componentWillReceiveProps(newprops) {
+    if (newprops.id == this.props.id) return;
+    let current = false,
+        result = false;
+    if (newprops.answered) {
+      current = newprops.answered.answer;
+      if (newprops.answered.result == 0) {
+        result = true;
+      }
+    }
     this.setState({
-      currentQuestion: this.props.id,
-      answered: false,
-      current: false,
-      showingResult: false,
-      showingResultTimer: false
+      currentQuestion: newprops.id,
+      answered: newprops.answered,
+      current: current,
+      result: result,
+      showingResult: newprops.answered,
+      showingResultTimer: false,
+      alreadyAnswered: newprops.answered
     });
 
     if (newprops.id) {
@@ -74,13 +115,17 @@ class QuestionComponent extends React.Component {
     result = this.getResult();
 
     return (
-      <div className="Question">
+      <div className={cx(
+        'Question',
+        {'Question--already-answered': this.state.alreadyAnswered}
+      )}>
         <h3 className="Question__title">La declaración:</h3>
         <blockquote className="Question__quote">{this.props.quote}</blockquote>
         <VoteArea
           callback={this.handleSelection}
           score={this.props.score}
-          showResult={showResult}/>
+          showResult={showResult}
+          result={this.state.result}/>
         {result}
       </div>
     );

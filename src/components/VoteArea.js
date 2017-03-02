@@ -1,5 +1,4 @@
 'use strict';
-
 import React from 'react';
 import cx from 'classnames';
 import Button from './VoteButton';
@@ -31,8 +30,12 @@ class VoteButtonComponent extends React.Component {
         'value': 5
       },
       {
-        'name': 'False',
+        'name': 'Falso',
         'value': 6
+      },
+      {
+        'name': 'Inchequable',
+        'value': 7
       }
     ]
   };
@@ -49,7 +52,7 @@ class VoteButtonComponent extends React.Component {
   }
 
   setInchequable() {
-    this.handleSelection(7);
+    this.handleSelection(8);
   }
 
   handleSelection(id) {
@@ -98,8 +101,12 @@ class VoteButtonComponent extends React.Component {
     if (this.state.selected === 7) inchequableActive = true;
 
     return (
-      <div className='VoteArea'>
-        <h4 className="VoteArea__title">¿Qué opinas?</h4>
+      <div className={cx(
+        'VoteArea',
+        {'VoteArea--correct': this.props.result && this.props.showResult},
+        {'VoteArea--wrong': !this.props.result && this.props.showResult}
+      )}>
+        <h4 className="VoteArea__title">¿Verdad?</h4>
         <div className="VoteArea__form-container">
           <div className={cx(
             'VoteArea__slide',
@@ -113,17 +120,15 @@ class VoteButtonComponent extends React.Component {
           </ul>
           <div className={cx(
             'VoteArea__footer',
-            {'VoteArea__footer--hidden': this.props.showResult && this.props.score !== 7},
-            {'VoteArea__footer--this-is-it': this.props.showResult& this.props.score == 7}
+            {'VoteArea__footer--hidden': this.props.showResult},
           )}>
             {/*<small>- O -</small>*/}
             <button onClick={this.setInchequable}
                     className={cx(
                       'VoteArea__button',
-                      {'VoteArea__button--selected': inchequableActive},
-                      {'VoteArea__button--this-is-it': this.props.score == 7 && this.props.showResult}
+                      {'VoteArea__button--selected': inchequableActive && this.props.showResult},
                       )}>
-              Inchequable
+              No lo sé
             </button>
           </div>
         </div>

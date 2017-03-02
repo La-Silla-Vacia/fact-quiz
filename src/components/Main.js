@@ -1,5 +1,4 @@
 /*global sillaInteractiveData */
-
 require('styles/App.scss');
 
 import React from 'react';
@@ -14,19 +13,21 @@ class AppComponent extends React.Component {
     this.state = {
       currentQuestionIndex: 0,
       error: false,
-      questions: []
+      questions: [],
+      results: []
     };
 
     this.prevNext = this.prevNext.bind(this);
     this.prevQuestion = this.prevQuestion.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.saveData = this.saveData.bind(this);
   }
 
   componentDidMount() {
     this.getData();
 
-    const hash = Number(window.location.hash.replace('#', ''));
-    if (hash) this.setState({currentQuestionIndex: hash - 1});
+    // const hash = Number(window.location.hash.replace('#', ''));
+    // if (hash) this.setState({currentQuestionIndex: hash - 1});
   }
 
   getData() {
@@ -63,6 +64,15 @@ class AppComponent extends React.Component {
     this.prevNext('prev');
   }
 
+  saveData(data) {
+    const results = this.state.results;
+    results[data.question] = {
+      answer: data.answer,
+      result: data.difference
+    };
+    this.setState({results});
+  }
+
   render() {
 
     let error = '';
@@ -71,23 +81,15 @@ class AppComponent extends React.Component {
     }
 
     let buttonsToShow = {prev: true, next: true};
-    let prevButton, nextButton;
     if (this.state.currentQuestionIndex == 0) {
       buttonsToShow.prev = false;
-    } else {
-      prevButton = (
-        <button onClick={this.prevQuestion} className="index__switch-question">&lt;</button>
-      );
     }
     if (this.state.currentQuestionIndex >= this.state.questions.length - 1) {
       buttonsToShow.next = false;
-    } else {
-      nextButton = (
-        <button onClick={this.nextQuestion} className="index__switch-question">&gt;</button>
-      );
     }
 
     const question = this.state.questions[this.state.currentQuestionIndex];
+    let answered = this.state.results[this.state.currentQuestionIndex];
 
     return (
       <div className="index">
@@ -95,13 +97,17 @@ class AppComponent extends React.Component {
         {error}
         <div className="index__question-counter">
           {this.state.currentQuestionIndex + 1}/{this.state.questions.length}
-          <div className="index__switch">
-            {prevButton}
-            {nextButton}
-          </div>
+          <PrevNext
+            callback={this.prevNext}
+            show={buttonsToShow}
+            type="compact"
+          />
         </div>
-        <Question {...question} />
-
+        <Question
+          {...question}
+          callback={this.saveData}
+          answered={answered}
+        />
         <PrevNext
           callback={this.prevNext}
           show={buttonsToShow}

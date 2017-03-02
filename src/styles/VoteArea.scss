@@ -3,6 +3,46 @@ $breakpoint: 34em;
 .VoteArea {
   position: relative;
   padding: 1em 0 1.5em;
+  background-color: #fff;
+  transition: $transition-duration;
+  margin-bottom: 1em;
+
+  &::before {
+    content: "";
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    right: 1em;
+    top: 1.2em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: $transition-duration 1s;
+  }
+
+  &--correct,
+  &--wrong {
+    transition-delay: 1s;
+    padding-left: 1em;
+    padding-right: 1em;
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &--correct {
+    background-color: $good-bg-green;
+    &::before {
+      background-image: url('../images/answer-good.svg');
+    }
+  }
+
+  &--wrong {
+    background-color: $wrong-bg-red;
+    &::before {
+      background-image: url('../images/answer-wrong.svg');
+    }
+  }
 
   &__title {
     margin-bottom: 1em;
@@ -13,12 +53,13 @@ $breakpoint: 34em;
   }
 
   &__slide {
-    width: 100%;
+    width: 92.5%;
     height: .25em;
-    background-image: linear-gradient(90deg, #00FF99 0%, #FF0000 100%);
+    background-image: linear-gradient(90deg, $good-green 0%, #FFCA28 50%, $wrong-red 82.5%, $brand-lightgrey-dark 82.5%);
     position: absolute;
     top: $buttonSize / 2;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
     transition: all $transition-duration;
     border-radius: $buttonSize;
 
@@ -39,7 +80,7 @@ $breakpoint: 34em;
     @media screen and (max-width: $breakpoint) {
       width: $buttonSize;
       height: calc(100% - 6em);
-      background-image: linear-gradient(180deg, #00FF99 0%, #FF0000 100%);
+      background-image: linear-gradient(180deg, $good-green 0%, $wrong-red 100%);
       transform: inherit;
       top: 0;
     }
@@ -52,7 +93,7 @@ $breakpoint: 34em;
     padding: 0 0 1.5em 0;
     margin: 0 auto;
     transition: .4s 0s;
-    width: 42em;
+    width: 44em;
 
     @media screen and (max-width: $breakpoint) {
       flex-direction: column;
@@ -72,6 +113,9 @@ $breakpoint: 34em;
       opacity: 0;
       width: 0;
       transition-delay: 1s;
+      .VoteButton {
+        cursor: default;
+      }
     }
   }
 
@@ -103,9 +147,9 @@ $breakpoint: 34em;
 
   &__button {
     background: #fff;
-    border: 1px solid $brand-color;
+    border: 1px solid $brand-lightgrey-dark;
     border-radius: 3px;
-    color: $brand-color;
+    color: $brand-lightgrey-dark;
     text-transform: uppercase;
     margin-top: 1em;
     transition: background-color $transition-duration, color $transition-duration;

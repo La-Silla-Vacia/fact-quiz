@@ -1,7 +1,7 @@
 @import "variables";
 
 .Question {
-  margin-top: 1.5em;
+  margin-top: 24px;
   padding: 0 1.5em 1.5em;
   position: relative;
 
@@ -15,7 +15,11 @@
   }
 
   &__title {
-    color: $brand-lightgrey-dark
+    color: $brand-lightgrey-dark;
+    font-size: 1.75em;
+    @media screen and (max-width: $screen-md-min) {
+      font-size: calc(1em + 1vmin);
+    }
   }
 
   &__quote {
@@ -23,9 +27,13 @@
     position: relative;
     line-height: 1.85;
     margin-left: 0;
+    margin-bottom: 2em;
     width: 100%;
     max-width: 19em;
     float: left;
+    @media screen and (max-width: $screen-md-min) {
+      font-size: calc(1em + 1vw)
+    }
 
     &::before,
     &::after {
@@ -39,6 +47,11 @@
     &::before {
       top: inherit;
       position: absolute;
+      @media screen and (max-width: $screen-md-min) {
+        left: inherit;
+        position: relative;
+        margin-right: 0.1em;
+      }
     }
   }
 
@@ -46,6 +59,13 @@
     opacity: .2;
     margin-left: 3em;
     margin-bottom: 1em;
+    @media screen and (max-width: 725px) {
+      width: 20vw;
+      margin-left: 3vw;
+    }
+    @media screen and (max-width: 660px) {
+      display: none;
+    }
   }
 
   &__silla {
@@ -92,6 +112,10 @@
     transition: opacity 1.2s;
     max-width: 35em;
     padding: 1em;
+    @media screen and (max-width: $breakpoint) {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   &__explanation--hidden {

@@ -8,6 +8,9 @@
     text-align: right;
     position: relative;
     z-index: 1;
+    @media screen and (max-width: $breakpoint) {
+      display: none;
+    }
   }
 
   &--overlay {
@@ -15,6 +18,11 @@
     margin-top: -3em;
     width: calc(100% - 3em);
     padding: 0;
+    @media screen and (max-width: $breakpoint) {
+      font-size: 1.2em;
+      margin-top: -2.75em;
+      width: calc(100% - 2.75em);
+    }
   }
 
   &--compact .PrevNext__button {

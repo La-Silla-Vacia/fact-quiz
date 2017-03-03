@@ -28,6 +28,9 @@ body {
     font-weight: 600;
     border-color: $brand-white;
     text-align: right;
+    @media screen and (max-width: $screen-md-min) {
+      font-size: calc(1.5em + 1vw);
+    }
   }
 
   &__question-counter {
@@ -38,7 +41,12 @@ body {
     color: $brand-lightgrey-dark;
     line-height: 0.7;
     font-weight: lighter;
-    margin-top: 1em;
+    margin-top: 30px;
+    z-index: 5;
+
+    @media screen and (max-width: $screen-md-min) {
+      font-size: calc(1em + 1vmin);
+    }
   }
 
   &__switch {

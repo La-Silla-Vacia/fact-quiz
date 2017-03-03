@@ -127,11 +127,11 @@ class AppComponent extends React.Component {
           {error}
           <div className="index__question-counter">
             {currentIndex + 1}/{totalQuestions}
-            <PrevNext
-              callback={this.prevNext}
-              show={buttonsToShow}
-              type="compact"
-            />
+            {/*<PrevNext*/}
+              {/*callback={this.prevNext}*/}
+              {/*show={buttonsToShow}*/}
+              {/*type="compact"*/}
+            {/*/>*/}
           </div>
           {reportCard}
           {questionObj}

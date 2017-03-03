@@ -29,6 +29,10 @@ class ReportCardComponent extends React.Component {
     });
   }
 
+  componentWillMount() {
+    this.getUserScore();
+  }
+
   componentWillReceiveProps() {
     this.getUserScore();
   }

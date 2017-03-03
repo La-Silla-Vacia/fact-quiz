@@ -18,7 +18,8 @@ class QuestionComponent extends React.Component {
       showingResult: false,
       showingResultTimer: false,
       result: false,
-      alreadyAnswered: false
+      alreadyAnswered: false,
+      questionScore: false
     };
 
     this.handleSelection = this.handleSelection.bind(this);
@@ -40,12 +41,13 @@ class QuestionComponent extends React.Component {
   }
 
   submitResult(id) {
-
     let difference = 8;
     if (id < 8) {
       difference = QuestionComponent.getDifference(id, this.props.score)
     }
 
+    console.log(difference);
+    this.setState({questionScore: difference});
 
     this.props.callback({
       question: this.props.id,
@@ -84,13 +86,18 @@ class QuestionComponent extends React.Component {
   componentWillReceiveProps(newprops) {
     if (newprops.id == this.props.id) return;
     let current = false,
-      result = false;
+      result = false,
+      questionScore = false;
     if (newprops.answered) {
       current = newprops.answered.answer;
+      questionScore = newprops.answered.result;
       if (newprops.answered.result == 0) {
         result = true;
       }
     }
+
+    console.log(newprops.answered);
+
     this.setState({
       currentQuestion: newprops.id,
       answered: newprops.answered,
@@ -98,7 +105,8 @@ class QuestionComponent extends React.Component {
       result: result,
       showingResult: newprops.answered,
       showingResultTimer: false,
-      alreadyAnswered: newprops.answered
+      alreadyAnswered: newprops.answered,
+      questionScore: questionScore
     });
 
     if (newprops.id) {
@@ -126,17 +134,17 @@ class QuestionComponent extends React.Component {
           <blockquote className="Question__quote">{this.props.quote}</blockquote>
           <svg className="Question__logo" width="164px" height="177px" viewBox="0 0 164 177" version="1.1">
             <polygon className="Question__silla"
-                     points="70 80.9275139 70.5154619 136.081934 74.6391568 136.597396 75.1546187 85.5666708 117.422492 96.3913701 118.453416 149.483943 123.092573 149.483943 123.608035 95.8759082 157.628518 84.535747 158.14398 128.350006 162.267675 128.350006 163.814061 8.76285183 117.937954 0 118.453416 66.4945815"></polygon>
+                     points="70 80.9275139 70.5154619 136.081934 74.6391568 136.597396 75.1546187 85.5666708 117.422492 96.3913701 118.453416 149.483943 123.092573 149.483943 123.608035 95.8759082 157.628518 84.535747 158.14398 128.350006 162.267675 128.350006 163.814061 8.76285183 117.937954 0 118.453416 66.4945815"/>
             <polygon className="Question__silla"
-                     points="98.4532176 105.174904 97.9377557 162.906634 93.8140607 163.422095 93.2985989 109.298599 47.4224922 121.154222 46.3915685 176.824104 41.7524116 176.824104 40.7214879 120.63876 6.70100434 108.783137 6.18554247 160.844786 1.54638562 159.813862 0 16 48.453416 27.8556231 47.9379541 90.2265096"></polygon>
-
+                     points="98.4532176 105.174904 97.9377557 162.906634 93.8140607 163.422095 93.2985989 109.298599 47.4224922 121.154222 46.3915685 176.824104 41.7524116 176.824104 40.7214879 120.63876 6.70100434 108.783137 6.18554247 160.844786 1.54638562 159.813862 0 16 48.453416 27.8556231 47.9379541 90.2265096"/>
           </svg>
         </div>
         <VoteArea
           callback={this.handleSelection}
           score={this.props.score}
           showResult={showResult}
-          result={this.state.result}/>
+          result={this.state.result}
+          questionScore={this.state.questionScore} />
         {this.props.children}
         {result}
       </div>

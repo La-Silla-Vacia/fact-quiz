@@ -103,8 +103,9 @@ class VoteButtonComponent extends React.Component {
     return (
       <div className={cx(
         'VoteArea',
-        {'VoteArea--correct': this.props.result && this.props.showResult},
-        {'VoteArea--wrong': !this.props.result && this.props.showResult}
+        {'VoteArea--show-result': this.props.showResult},
+        {[`VoteArea--score-${this.props.questionScore}`]: this.props.showResult}
+
       )}>
         <h4 className="VoteArea__title">¿Verdad?</h4>
         <div className="VoteArea__form-container">

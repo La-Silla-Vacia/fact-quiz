@@ -1,5 +1,5 @@
 @import "variables";
-$breakpoint: 34em;
+
 .VoteArea {
   position: relative;
   padding: 1em 2.75em 1.5em;
@@ -8,6 +8,11 @@ $breakpoint: 34em;
   margin: 0 -1.5em 1em;
   border-left: 1px solid $brand-white;
   border-right: 1px solid $brand-white;
+  @media screen and (max-width: $breakpoint) {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    padding-bottom: 3em;
+  }
 
   &::before {
     content: "";
@@ -46,6 +51,9 @@ $breakpoint: 34em;
 
   &__title {
     margin-bottom: 1em;
+    //font-size: calc(1em + 1vmin);
+    color: $brand-lightgrey-dark;
+    font-weight: 500;
   }
 
   &__form-container {
@@ -62,6 +70,7 @@ $breakpoint: 34em;
     transform: translateY(-50%) translateX(-50%);
     transition: all $transition-duration;
     border-radius: $buttonSize;
+    overflow: hidden;
 
     &::before {
       content: "";
@@ -88,11 +97,12 @@ $breakpoint: 34em;
     }
 
     @media screen and (max-width: $breakpoint) {
-      width: $buttonSize;
-      height: calc(100% - 6em);
-      background-image: linear-gradient(180deg, $good-green 0%, $wrong-red 100%);
+      width: $mobileButtonsSize;
+      height: calc(100% - 3.5em);
+      background-image: linear-gradient(180deg, $good-green 0%, #FFCA28 50%, $wrong-red 100%);
       transform: inherit;
       top: 0;
+      left: 0;
     }
   }
 
@@ -103,26 +113,40 @@ $breakpoint: 34em;
     padding: 0 0 1.5em 0;
     margin: 0 auto;
     transition: .4s 0s;
-    width: 44em;
+    width: 100%;
+    max-width: 44em;
+    line-height: 0.5;
 
     @media screen and (max-width: $breakpoint) {
       flex-direction: column;
+      padding-bottom: 0.5em;
     }
 
     &--small {
       width: $buttonSize;
-      transition-delay: 1s;
+      transition-delay: $transition-delay;
+
+      @media screen and (max-width: $breakpoint) {
+        width: inherit;
+      }
     }
   }
 
   &__list-item {
     opacity: 1;
     width: $buttonSize;
+    height: $buttonSize * 1.25;
     transition: $transition-duration;
+
+    @media screen and (max-width: $screen-md-min) {
+      width: $mobileButtonsSize;
+      height: $mobileButtonsSize * 1.25;
+    }
     &--hidden {
       opacity: 0;
       width: 0;
-      transition-delay: 1s;
+      height: 0;
+      transition-delay: $transition-delay;
       .VoteButton {
         cursor: default;
       }
@@ -143,12 +167,12 @@ $breakpoint: 34em;
   &__footer--hidden {
     opacity: 0;
     margin-top: -4em;
-    transition-delay: 1s;
+    transition-delay: $transition-delay;
   }
 
   &__footer--this-is-it {
     margin-top: -5.55em;
-    transition-delay: 1s;
+    transition-delay: $transition-delay;
     position: relative;
     small {
       opacity: 0;
@@ -163,6 +187,9 @@ $breakpoint: 34em;
     text-transform: uppercase;
     margin-top: 1em;
     transition: background-color $transition-duration, color $transition-duration;
+    @media screen and (max-width: $breakpoint) {
+      text-align: left;
+    }
 
     &:focus {
       outline: none;

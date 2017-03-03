@@ -1,7 +1,5 @@
 @import "variables";
 
-$breakpoint: 34em;
-
 .VoteButton {
   background-color: $brand-white;
   border: 1px solid $brand-color;
@@ -10,7 +8,11 @@ $breakpoint: 34em;
   height: $buttonSize;
   padding: 0;
   position: relative;
-  transition: top 1s;
+  transition: top $transition-delay;
+  @media screen and (max-width: $breakpoint) {
+    width: $mobileButtonsSize;
+    height: $mobileButtonsSize;
+  }
 
   &::before {
     content: '';
@@ -61,7 +63,11 @@ $breakpoint: 34em;
       border-radius: 16px;
       letter-spacing: 2px;
       transform: translateX(-50%) translateY(-20%);
-      transition-delay: 1s;
+      transition-delay: $transition-delay;
+      @media screen and (max-width: $screen-md-min) {
+        left: 0;
+        padding: 10px 20px;
+      }
     }
   }
 
@@ -76,11 +82,12 @@ $breakpoint: 34em;
     transition: $transition-duration 0s;
     transform: translateX(-50%);
     top: 1.5em;
+    line-height: 1.5;
 
     @media screen and (max-width: $breakpoint) {
       position: relative;
-      top: -0.15em;
-      left: 2em;
+      top: 0;
+      left: 2.5em;
       transform: inherit;
     }
   }
@@ -121,7 +128,6 @@ $breakpoint: 34em;
     color: $text-color;
   }
 }
-
 @keyframes blinkBg {
   0% {
     background-color: $text-color;

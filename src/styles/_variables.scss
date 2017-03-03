@@ -10,6 +10,7 @@ $font-family-display: 'Roboto Slab', Georgia, sans-serif;
 $font-family-serif: 'Georgia', Times new roman, serif;
 $max-content-width: 60em;
 $transition-duration: 0.2s;
+$transition-delay: 0.6s;
 
 /*
  * Layout
@@ -18,15 +19,18 @@ $transition-duration: 0.2s;
 $buttonSize: 1.25em;
 $innerButtonSize: 0.75em;
 
+$mobileButtonsSize: 2em;
+$mobileInnerButtonSize: 1.25em;
+
 /*
  * Media queries breakpoints
  * ======================================================================== */
 
 $screen-xs-min: 30rem;  /* Extra small screen / phone */
 $screen-sm-min: 48rem;  /* Small screen / tablet */
-$screen-md-min: 64rem;  /* Medium screen / desktop */
+$screen-md-min: 992px;  /* Medium screen / desktop */
 $screen-lg-min: 75rem; /* Large screen / wide desktop */
-
+$breakpoint: 625px;
 
 $wrong-red: #D32F2F;
 $good-green: #43a047;

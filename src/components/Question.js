@@ -25,6 +25,55 @@ class QuestionComponent extends React.Component {
     this.handleSelection = this.handleSelection.bind(this);
   }
 
+  componentDidMount() {
+    this.watchKeys();
+  }
+
+  watchKeys() {
+    document.addEventListener('keydown', (event) => {
+      // console.log(event.keyCode);
+      let key = false;
+      switch (event.keyCode) {
+        case 49:
+          key = 1;
+          break;
+        case 50:
+          key = 2;
+          break;
+        case 51:
+          key = 3;
+          break;
+        case 52:
+          key = 4;
+          break;
+        case 53:
+          key = 5;
+          break;
+        case 54:
+          key = 6;
+          break;
+        case 55:
+          key = 7;
+          break;
+        case 56:
+          key = 8;
+          break;
+        case 13:
+          key = 'enter';
+          break;
+      }
+
+      if (this.state.showingResult) {
+        if (key === 'enter') {
+          this.props.switchQuestion('next');
+        }
+      } else if (key >= 1 && key <= 8) {
+        this.handleSelection(key);
+      }
+
+    });
+  }
+
   handleSelection(id) {
     this.setState({
       current: id,
@@ -43,10 +92,9 @@ class QuestionComponent extends React.Component {
   submitResult(id) {
     let difference = 8;
     if (id < 8) {
-      difference = QuestionComponent.getDifference(id, this.props.score)
+      difference = QuestionComponent.getDifference(id, this.props.score) * 1.75
     }
 
-    console.log(difference);
     this.setState({questionScore: difference});
 
     this.props.callback({
@@ -96,8 +144,6 @@ class QuestionComponent extends React.Component {
       }
     }
 
-    console.log(newprops.answered);
-
     this.setState({
       currentQuestion: newprops.id,
       answered: newprops.answered,
@@ -144,7 +190,8 @@ class QuestionComponent extends React.Component {
           score={this.props.score}
           showResult={showResult}
           result={this.state.result}
-          questionScore={this.state.questionScore} />
+          questionScore={this.state.questionScore}
+          selected={this.state.current} />
         {this.props.children}
         {result}
       </div>

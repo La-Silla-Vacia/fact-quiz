@@ -64,7 +64,7 @@ class VoteButtonComponent extends React.Component {
     return this.props.buttons.map((button, index) => {
       let active = false,
         thisIsIt = false;
-      if (this.state.selected == button.value && this.props.showResult) {
+      if (this.props.selected == button.value && this.props.showResult) {
         active = true;
       }
 
@@ -98,13 +98,13 @@ class VoteButtonComponent extends React.Component {
   render() {
     const buttons = this.getButtons();
     let inchequableActive = false;
-    if (this.state.selected === 7) inchequableActive = true;
+    if (this.props.selected === 7) inchequableActive = true;
 
     return (
       <div className={cx(
         'VoteArea',
         {'VoteArea--show-result': this.props.showResult},
-        {[`VoteArea--score-${this.props.questionScore}`]: this.props.showResult}
+        {[`VoteArea--score-${Math.round(this.props.questionScore)}`]: this.props.showResult}
 
       )}>
         <h4 className="VoteArea__title">¿Verdad?</h4>

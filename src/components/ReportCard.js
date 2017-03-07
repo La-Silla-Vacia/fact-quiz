@@ -12,21 +12,6 @@ class ReportCardComponent extends React.Component {
     this.state = {
       userResult: {}
     };
-
-    this.getTableRows = this.getTableRows.bind(this);
-  }
-
-  getTableRows() {
-    return this.props.data.map((result, index) => {
-      let score = 10 / 8;
-      let resultScore = ((10 - (result.result)) - 2) * score;
-      return (
-        <tr key={index}>
-          <td>{index + 1}</td>
-          <td>{resultScore}</td>
-        </tr>
-      )
-    });
   }
 
   componentWillMount() {
@@ -45,36 +30,29 @@ class ReportCardComponent extends React.Component {
     const notSoGoodResult = numberOfResults * 3;
 
     let totalUserResult = 0;
-    this.props.data.map((result, index) => {
+    this.props.data.map((result) => {
       let score = 10 / 8;
       let resultScore = ((10 - (result.result)) - 2) * score;
       totalUserResult += resultScore;
-
-      return (
-        <tr key={index}>
-          <td>{index + 1}</td>
-          <td>{resultScore}</td>
-        </tr>
-      )
     });
 
     let scoreName = '';
     if (totalUserResult >= maxResult) {
-      scoreName = 'Total wonder';
+      scoreName = 'You\'re a total wonder. You have a %s% score, amazing.';
     } else if (totalUserResult >= goodResult) {
-      scoreName = 'You\'re good';
+      scoreName = 'You\'re good. You have %s% right';
     } else if (totalUserResult >= averageResult) {
-      scoreName = 'You\'re OK';
+      scoreName = 'You\'re OK. You have %s% right';
     } else if (totalUserResult >= notSoGoodResult) {
-      scoreName = 'I would not trust you';
+      scoreName = 'I would not trust you. You have %s% right';
     } else {
-      scoreName = 'Terrible.';
+      scoreName = 'Terrible. You have %s% right';
     }
 
-    const point = totalUserResult / numberOfResults;
+    const point = Math.round((totalUserResult / numberOfResults * 10));
     const userResult = {
-      name: scoreName,
-      point: Math.round(point * 10) / 10
+      name: scoreName.replace('%s', point),
+      point: point
     };
     this.setState({userResult});
   }
@@ -82,8 +60,9 @@ class ReportCardComponent extends React.Component {
   render() {
     return (
       <div className="ReportCard">
-        <h2>Your reportcard</h2>
-        <span>You've got a {this.state.userResult.point}. This means you're <strong>{this.state.userResult.name}</strong></span>
+        <h2>Sus resultados</h2>
+        <h3>¿Eres un verdadero detector de mentiras?</h3>
+        <span><strong>{this.state.userResult.name}</strong></span>
       </div>
     );
   }

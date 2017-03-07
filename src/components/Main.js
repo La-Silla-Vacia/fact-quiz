@@ -107,6 +107,7 @@ class AppComponent extends React.Component {
         <Question
           {...question}
           callback={this.saveData}
+          switchQuestion={this.prevNext}
           answered={answered}
         >
           <PrevNext
@@ -118,6 +119,19 @@ class AppComponent extends React.Component {
       )
     }
 
+    let indexCounter;
+    if (currentIndex + 1 == totalQuestions)
+      indexCounter = (
+        <div className="index__question-counter">
+          {currentIndex + 1}/{totalQuestions}
+          {/*<PrevNext*/}
+          {/*callback={this.prevNext}*/}
+          {/*show={buttonsToShow}*/}
+          {/*type="compact"*/}
+          {/*/>*/}
+        </div>
+      );
+
     return (
       <div className="index">
         <div className="index__inner">
@@ -125,14 +139,7 @@ class AppComponent extends React.Component {
             La Silla's Fact Quiz
           </h2>
           {error}
-          <div className="index__question-counter">
-            {currentIndex + 1}/{totalQuestions}
-            {/*<PrevNext*/}
-              {/*callback={this.prevNext}*/}
-              {/*show={buttonsToShow}*/}
-              {/*type="compact"*/}
-            {/*/>*/}
-          </div>
+          {indexCounter}
           {reportCard}
           {questionObj}
         </div>

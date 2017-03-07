@@ -27,25 +27,60 @@
     transition: $transition-duration 1s;
   }
 
-  &--correct,
-  &--wrong {
+  &--show-result {
     transition-delay: 1s;
     &::before {
       opacity: 1;
     }
   }
 
-  &--correct {
-    background-color: $good-bg-green;
+  $intencity: 0.25;
+  &--score-0 {
+    background-color: rgba(67, 160, 71, $intencity);
     &::before {
-      background-image: url('../images/answer-good.svg');
+      background-image: url('../images/emojis/score-0.svg');
     }
   }
 
-  &--wrong {
-    background-color: $wrong-bg-red;
+  &--score-1 {
+    background-color: rgba(161, 181, 55, $intencity);
     &::before {
-      background-image: url('../images/answer-wrong.svg');
+      background-image: url('../images/emojis/score-1.svg');
+    }
+  }
+
+  &--score-2 {
+    background-color: rgba(255, 202, 40, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-2.svg');
+    }
+  }
+
+  &--score-3 {
+    background-color: rgba(247, 174, 41, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-3.svg');
+    }
+  }
+
+  &--score-4 {
+    background-color: rgba(233, 125, 43, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-4.svg');
+    }
+  }
+
+  &--score-5 {
+    background-color: rgba(211, 47, 47, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-5.svg');
+    }
+  }
+
+  &--score-6 {
+    background-color: rgba(153, 0, 0, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-6.svg');
     }
   }
 

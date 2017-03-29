@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import cx from 'classnames';
 
 require('styles/ReportCard.scss');
 
@@ -10,8 +11,11 @@ class ReportCardComponent extends React.Component {
     super();
 
     this.state = {
-      userResult: {}
+      userResult: {},
+      openRow: 999
     };
+
+    this.openRow = this.openRow.bind(this);
   }
 
   componentWillMount() {
@@ -20,6 +24,35 @@ class ReportCardComponent extends React.Component {
 
   componentWillReceiveProps() {
     this.getUserScore();
+  }
+
+  getAllQuestions() {
+    return this.props.questions.map((question, index) => {
+      let open = false;
+      if (this.state.openRow == index) {
+        open = true;
+      }
+
+      return (
+        <QuoteRow
+          key={index}
+          index={index + 1}
+          quote={question.quote}
+          answer={question.explicacion}
+          result={Math.round(this.props.data[index].result)}
+          callback={this.openRow}
+          open={open}
+        />
+      )
+    });
+  }
+
+  openRow(e) {
+    let newRow = 999;
+    if (this.state.openRow !== e) {
+      newRow = e;
+    }
+    this.setState({openRow: newRow});
   }
 
   getUserScore() {
@@ -58,11 +91,24 @@ class ReportCardComponent extends React.Component {
   }
 
   render() {
+    const questions = this.getAllQuestions();
+
     return (
       <div className="ReportCard">
         <h2>Sus resultados</h2>
         <h3>¿Eres un verdadero detector de mentiras?</h3>
         <span><strong>{this.state.userResult.name}</strong></span>
+        <table className="table table-hover ReportCard__results">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Quote</th>
+          </tr>
+          </thead>
+          <tbody>
+          {questions}
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -70,8 +116,38 @@ class ReportCardComponent extends React.Component {
 
 ReportCardComponent.displayName = 'ReportCardComponent';
 
-// Uncomment properties you need
-// ReportCardComponent.propTypes = {};
-// ReportCardComponent.defaultProps = {};
+class QuoteRow extends React.Component {
+  constructor() {
+    super();
+
+    this.setOpen = this.setOpen.bind(this);
+  }
+
+  setOpen() {
+    this.props.callback(this.props.index - 1);
+  }
+
+  render() {
+    let answerStyle = {display: 'none'};
+    if (this.props.open) {
+      answerStyle = {display: 'block'};
+    }
+
+    return (
+      <tr onClick={this.setOpen}>
+        <td className={cx(`VoteArea--score-${this.props.result}`)}>
+          <strong>{this.props.index}</strong>
+        </td>
+        <td>
+          <h4 title="Clic para ver la explicación">{this.props.quote}</h4>
+          <div style={answerStyle}>
+
+          <div dangerouslySetInnerHTML={{__html: this.props.answer }} />
+          </div>
+        </td>
+      </tr>
+    );
+  }
+}
 
 export default ReportCardComponent;

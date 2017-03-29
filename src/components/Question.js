@@ -65,6 +65,7 @@ class QuestionComponent extends React.Component {
 
       if (this.state.showingResult) {
         if (key === 'enter') {
+          event.preventDefault();
           this.props.switchQuestion('next');
         }
       } else if (key >= 1 && key <= 8) {
@@ -125,21 +126,20 @@ class QuestionComponent extends React.Component {
           {'Question__explanation--hidden': !this.state.showingResult}
         )}
       >
-        <h3>Explicación</h3>
         <article dangerouslySetInnerHTML={{__html: this.props.explicacion}}/>
       </section>
     );
   }
 
   componentWillReceiveProps(newprops) {
-    if (newprops.id == this.props.id) return;
+    if (newprops.id === this.props.id) return;
     let current = false,
       result = false,
       questionScore = false;
     if (newprops.answered) {
       current = newprops.answered.answer;
       questionScore = newprops.answered.result;
-      if (newprops.answered.result == 0) {
+      if (newprops.answered.result === 0) {
         result = true;
       }
     }

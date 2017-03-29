@@ -2,7 +2,7 @@
 
 .Question {
   margin-top: 24px;
-  padding: 0 1.5em 1.5em;
+  padding: 0 0 1.5em;
   position: relative;
 
   &--already-answered {
@@ -16,18 +16,20 @@
 
   &__title {
     color: $brand-lightgrey-dark;
-    font-size: 1.75em;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 300;
     @media screen and (max-width: $screen-md-min) {
       font-size: calc(1em + 1vmin);
     }
   }
 
   &__quote {
-    font-size: 1.5em;
+    font-size: 20px;
     position: relative;
-    line-height: 1.85;
+    line-height: 1.4em;
     margin-left: 0;
-    margin-bottom: 2em;
+    margin-bottom: 0;
     width: 100%;
     max-width: 19em;
     float: left;
@@ -57,7 +59,8 @@
 
   &__logo {
     opacity: .2;
-    margin-left: 3em;
+    margin-left: 2em;
+    width: 140px;
     margin-bottom: 1em;
     @media screen and (max-width: 725px) {
       width: 20vw;
@@ -69,7 +72,7 @@
   }
 
   &__silla {
-    fill: $brand-color
+    fill: $theme-color
   }
 
   &__score {
@@ -110,8 +113,15 @@
     overflow: hidden;
     opacity: 1;
     transition: opacity 1.2s;
-    max-width: 35em;
-    padding: 1em;
+    max-width: 40em;
+    padding: 1em 0;
+
+    h3 {
+      font-size: 26px;
+      line-height: 1.1em;
+      color: #444848;
+      font-weight: 700;
+    }
     @media screen and (max-width: $breakpoint) {
       padding-left: 0;
       padding-right: 0;
@@ -120,6 +130,9 @@
 
   &__explanation--hidden {
     opacity: 0;
+    height: 0;
     transition: 0s;
+    padding: 0;
+    margin: 0;
   }
 }

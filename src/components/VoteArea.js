@@ -56,7 +56,7 @@ class VoteButtonComponent extends React.Component {
   }
 
   handleSelection(id) {
-    this.setState({selected: id});
+    this.setState({ selected: id });
     this.props.callback(id);
   }
 
@@ -64,12 +64,12 @@ class VoteButtonComponent extends React.Component {
     return this.props.buttons.map((button, index) => {
       let active = false,
         thisIsIt = false;
-      if (this.props.selected == button.value && this.props.showResult) {
+      if (this.props.selected === button.value && this.props.showResult) {
         active = true;
       }
 
       if (this.props.showResult) {
-        if (button.value == this.props.score) {
+        if (button.value === this.props.score) {
           thisIsIt = true;
         } else {
           thisIsIt = 2;
@@ -80,7 +80,7 @@ class VoteButtonComponent extends React.Component {
         <li
           className={cx(
             'VoteArea__list-item',
-            {'VoteArea__list-item--hidden': thisIsIt == 2}
+            { 'VoteArea__list-item--hidden': thisIsIt === 2 }
           )}
           key={index}
         >
@@ -102,36 +102,38 @@ class VoteButtonComponent extends React.Component {
 
     return (
       <div className={cx(
-        'VoteArea',
-        {'VoteArea--show-result': this.props.showResult},
-        {[`VoteArea--score-${Math.round(this.props.questionScore)}`]: this.props.showResult}
-
+        'VoteArea'
       )}>
         <h4 className="VoteArea__title">¿Verdad?</h4>
-        <div className="VoteArea__form-container">
+
+        <div className={cx(
+          'VoteArea__form-container',
+          { 'VoteArea--show-result': this.props.showResult },
+          { [`VoteArea--score-${Math.round(this.props.questionScore)}`]: this.props.showResult }
+        )}>
           <div className={cx(
             'VoteArea__slide',
-            {'VoteArea__slide--small': this.props.showResult}
-          )}></div>
+            { 'VoteArea__slide--small': this.props.showResult }
+          )} />
           <ul className={cx(
             'VoteArea__button-list',
-            {'VoteArea__button-list--small': this.props.showResult}
+            { 'VoteArea__button-list--small': this.props.showResult }
           )}>
             {buttons}
           </ul>
-          <div className={cx(
-            'VoteArea__footer',
-            {'VoteArea__footer--hidden': this.props.showResult},
-          )}>
-            {/*<small>- O -</small>*/}
-            <button onClick={this.setInchequable}
-                    className={cx(
-                      'VoteArea__button',
-                      {'VoteArea__button--selected': inchequableActive && this.props.showResult},
-                      )}>
-              No lo sé
-            </button>
-          </div>
+        </div>
+        <div className={cx(
+          'VoteArea__footer',
+          { 'VoteArea__footer--hidden': this.props.showResult },
+        )}>
+          {/*<small>- O -</small>*/}
+          <button onClick={this.setInchequable}
+                  className={cx(
+                    'VoteArea__button',
+                    { 'VoteArea__button--selected': inchequableActive && this.props.showResult },
+                  )}>
+            No lo sé
+          </button>
         </div>
       </div>
     );

@@ -58,7 +58,7 @@ function getDefaultModules() {
 
 module.exports = {
   srcPath: srcPath,
-  publicPath: '/assets/',
+  publicPath: 'https://la-silla-vacia.github.io/fact-quiz/assets/',
   port: dfltPort,
   getDefaultModules: getDefaultModules
 };

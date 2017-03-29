@@ -2,105 +2,126 @@
 
 .VoteArea {
   position: relative;
-  padding: 1em 2.75em 1.5em;
-  background-color: #F3F7FA;
-  transition: $transition-duration;
-  margin: 0 -1.5em 1em;
-  border-left: 1px solid $brand-white;
-  border-right: 1px solid $brand-white;
+  padding: 0 0 1.5em;
   @media screen and (max-width: $breakpoint) {
     padding-left: 1.5em;
     padding-right: 1.5em;
     padding-bottom: 3em;
   }
 
-  &::before {
-    content: "";
-    width: 2em;
-    height: 2em;
-    position: absolute;
-    right: 1em;
-    top: 1.2em;
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: $transition-duration 1s;
+  &__title {
+    margin-bottom: 1em;
+    //font-size: calc(1em + 1vmin);
+    color: $theme-color;
+    font-weight: 500;
   }
 
-  &--show-result {
-    transition-delay: 1s;
+  &__form-container {
+    position: relative;
+    background-color: rgba(0,144,150,.1);
+    padding: 1em 2.5em 2em;
+    border-radius: 10px;
+    transition: $transition-duration;
     &::before {
-      opacity: 1;
+      content: '';
+      width: 2em;
+      height: 2em;
+      position: absolute;
+      right: 1em;
+      top: 50%;
+      transform: translateY(-50%);
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: $transition-duration 1s;
     }
   }
 
   $intencity: 0.25;
   &--score-0 {
-    background-color: rgba(67, 160, 71, $intencity);
+    background-color: rgba(68, 160, 71, $intencity);
     &::before {
       background-image: url('../images/emojis/score-0.svg');
     }
   }
 
   &--score-1 {
-    background-color: rgba(161, 181, 55, $intencity);
+    background-color: rgba(122, 172, 62, $intencity);
     &::before {
       background-image: url('../images/emojis/score-1.svg');
     }
   }
 
   &--score-2 {
-    background-color: rgba(255, 202, 40, $intencity);
+    background-color: rgba(162, 182, 56, $intencity);
     &::before {
       background-image: url('../images/emojis/score-2.svg');
     }
   }
 
   &--score-3 {
-    background-color: rgba(247, 174, 41, $intencity);
+    background-color: rgba(198, 189, 49, $intencity);
     &::before {
       background-image: url('../images/emojis/score-3.svg');
     }
   }
 
   &--score-4 {
-    background-color: rgba(233, 125, 43, $intencity);
+    background-color: rgba(239, 198, 43, $intencity);
     &::before {
       background-image: url('../images/emojis/score-4.svg');
     }
   }
 
   &--score-5 {
-    background-color: rgba(211, 47, 47, $intencity);
+    background-color: rgba(250, 285, 41, $intencity);
     &::before {
       background-image: url('../images/emojis/score-5.svg');
     }
   }
 
   &--score-6 {
-    background-color: rgba(153, 0, 0, $intencity);
+    background-color: rgba(241, 155, 42, $intencity);
     &::before {
       background-image: url('../images/emojis/score-6.svg');
     }
   }
 
-  &__title {
-    margin-bottom: 1em;
-    //font-size: calc(1em + 1vmin);
-    color: $brand-lightgrey-dark;
-    font-weight: 500;
+  &--score-7 {
+    background-color: rgba(233, 126, 43, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-6.svg');
+    }
   }
 
-  &__form-container {
-    position: relative;
+  &--score-8 {
+    background-color: rgba(225, 95, 45, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-6.svg');
+    }
+  }
+
+  &--score-9 {
+    background-color: rgba(212, 51, 51, $intencity);
+    &::before {
+      background-image: url('../images/emojis/score-6.svg');
+    }
+  }
+
+  &--show-result {
+    transition-delay: 1s;
+    padding-bottom: 1em;
+    &::before {
+      opacity: 1;
+    }
   }
 
   &__slide {
-    width: calc(100% - 2.5em);
+    width: calc(100% - 5em);
     height: .25em;
     background-image: linear-gradient(90deg, $good-green 0%, #FFCA28 50%, $wrong-red 82.5%, $brand-lightgrey-dark 82.5%);
     position: absolute;
-    top: $buttonSize / 2;
+    top: ($buttonSize / 2) + 1;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     transition: all $transition-duration;
@@ -121,7 +142,7 @@
 
     &--small {
       height: 1px;
-      width: 100%;
+      width: calc(100% - 10em);
       transition-delay: 1s;
       &::before {
         width: 100%;
@@ -145,11 +166,11 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-    padding: 0 0 1.5em 0;
+    padding: 0;
     margin: 0 auto;
     transition: .4s 0s;
     width: 100%;
-    max-width: 44em;
+    //max-width: 44em;
     line-height: 0.5;
 
     @media screen and (max-width: $breakpoint) {

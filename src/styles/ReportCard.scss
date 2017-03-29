@@ -1,3 +1,32 @@
+@import "variables";
+
 .ReportCard {
   padding: 1.5em;
+
+  &__results {
+    background-color: $brand-lightgrey;
+    border-radius: 3px;
+    overflow: hidden;
+    max-width: 28em;
+    > thead {
+      background-color: $brand-color;
+      color: $brand-white;
+      >tr {
+        > th {
+          border: 0;
+        }
+      }
+    }
+    td {
+      h4 {
+        margin-top: 0;
+        font-size: 1em;
+        line-height: 1.5;
+        &:before,
+        &:after {
+          content: '"';
+        }
+      }
+    }
+  }
 }

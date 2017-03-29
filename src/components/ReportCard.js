@@ -27,6 +27,7 @@ class ReportCardComponent extends React.Component {
 
     this.openRow = this.openRow.bind(this);
     this.handleFacebookshare = this.handleFacebookshare.bind(this);
+    this.handleTwitterShare = this.handleTwitterShare.bind(this);
   }
 
   componentWillMount() {
@@ -114,10 +115,25 @@ class ReportCardComponent extends React.Component {
         <span><strong>{this.state.userResult.name}</strong></span>
 
         {/*<img src={} alt={this.state.userResult.name} />*/}
-        <h5>Comparte tu resultado</h5>
-        <button onClick={this.handleFacebookshare}>Facebook</button>
+        <div className="ReportCard__social row">
+          <h5><em>Comparte tu resultado en:</em></h5>
+          <button className="ReportCard__social-btn ReportCard__social-btn--facebook"
+                  onClick={this.handleFacebookshare}>Facebook
+          </button>
+          <button className="ReportCard__social-btn ReportCard__social-btn--twitter"
+                  onClick={this.handleTwitterShare}>Twitter
+          </button>
+        </div>
       </div>
     );
+  }
+
+  handleTwitterShare(event) {
+    event.preventDefault();
+
+    window.open('https://twitter.com/intent/tweet?text='+ this.state.userResult.name +' en La Silla Vacía! ¿Y Usted?&url=http://lasillavacia.com/detector-de-mentiras',
+      '_blank',
+      'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450');
   }
 
   handleFacebookshare(event) {
@@ -136,7 +152,7 @@ class ReportCardComponent extends React.Component {
         app_id: "707991449304858",
         method: 'feed',
         link: 'http://lasillavacia.com/detector-de-mentiras',
-        picture: '',
+        picture: `https://github.com/La-Silla-Vacia/fact-quiz/raw/master/src/images/resultados/${this.state.finalScore}.png`,
         name: 'Detector de mentiras - La Silla Vacia'
       },
       function (response) {

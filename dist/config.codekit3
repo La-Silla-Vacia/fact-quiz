@@ -36,7 +36,7 @@
 		"oA": 0,
 		"oAP": "\/assets\/1146379055fca0c2a4e61a7bd74f0e05.png",
 		"oF": 0,
-		"opt": 0,
+		"opt": 1,
 		"q": 100
 		},
 	"\/assets\/2241453a50cf166097f425509adffcf9.svg": {
@@ -96,7 +96,7 @@
 		"oA": 0,
 		"oAP": "\/assets\/651750ba2da111a1bbfe1d50e784e586.png",
 		"oF": 0,
-		"opt": 0,
+		"opt": 1,
 		"q": 100
 		},
 	"\/assets\/69c65cffe2f297cc62ddad30554a0c42.svg": {
@@ -116,7 +116,7 @@
 		"oA": 0,
 		"oAP": "\/assets\/727a1a9bc4b85b7762fd0f03edb09761.png",
 		"oF": 0,
-		"opt": 0,
+		"opt": 1,
 		"q": 100
 		},
 	"\/assets\/a051684cb0e5a27a09274f1ce3f1c0c7.png": {

@@ -4,6 +4,31 @@
   padding-top: 1.5em;
   text-align: center;
 
+  &__social {
+    margin-top: 2em;
+  }
+
+  &__social-btn {
+    font-family: 'Lato', Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: .75em;
+    background: #fff;
+    border: 1px solid #979797;
+    border-radius: 3px;
+    color: #979797;
+    text-transform: uppercase;
+    margin: 1em;
+    transition: background-color 0.2s, color 0.2s;
+    &--facebook {
+      border-color: #3b5998;
+      color: #3b5998;
+    }
+    &--twitter {
+      border-color: #1da1f2;
+      color: #1da1f2;
+    }
+  }
+
   &__results {
     background-color: $brand-lightgrey;
     border-radius: 3px;

@@ -1,7 +1,8 @@
 @import "variables";
 
 .ReportCard {
-  padding: 1.5em;
+  padding-top: 1.5em;
+  text-align: center;
 
   &__results {
     background-color: $brand-lightgrey;

@@ -1,19 +1,17 @@
 'use strict';
-
 import React from 'react';
+import firebase from 'firebase';
 
 require('styles/ReportCard.scss');
 
-const resultImages = [
-  require('../images/resultados/1.png'),
-  require('../images/resultados/2.png'),
-  require('../images/resultados/3.png'),
-  require('../images/resultados/4.png'),
-  require('../images/resultados/5.png'),
-  require('../images/resultados/6.png'),
-  require('../images/resultados/7.png')
-];
-
+const config = {
+  apiKey: "AIzaSyBl-pcS2XqyKb-79QuQvsIwsWJ1Zx693i4",
+  authDomain: "detector-de-mentiras-69bb7.firebaseapp.com",
+  databaseURL: "https://detector-de-mentiras-69bb7.firebaseio.com",
+  storageBucket: "detector-de-mentiras-69bb7.appspot.com",
+  messagingSenderId: "433947191175"
+};
+let firebaseDone = false;
 class ReportCardComponent extends React.Component {
 
   constructor() {
@@ -32,6 +30,17 @@ class ReportCardComponent extends React.Component {
 
   componentWillMount() {
     this.getUserScore();
+  }
+
+  componentDidMount() {
+    this.setupFirebase();
+  }
+
+  setupFirebase() {
+    if (!firebaseDone) {
+      firebase.initializeApp(config);
+      firebaseDone = true;
+    }
   }
 
   componentWillReceiveProps() {
@@ -87,25 +96,41 @@ class ReportCardComponent extends React.Component {
     this.setState({ finalScore: scaledUserResult });
 
 
-    let scoreName = '';
+    let scoreName = '', shortName = '';
     if (totalUserResult >= maxResult) {
       scoreName = 'Eres un detector excepcional';
+      shortName = 'excepcional';
     } else if (totalUserResult >= goodResult) {
       scoreName = 'Eres un detector superior a lo esperado';
+      shortName = 'superior';
     } else if (totalUserResult >= averageResult) {
       scoreName = 'Tu resultado podría ser mejor';
+      shortName = 'sermejor';
     } else if (totalUserResult >= notSoGoodResult) {
       scoreName = 'Eres un detector inferior a lo esperado';
+      shortName = 'inferior';
     } else {
       scoreName = 'Lo sentimos, tu resultado no fue el mejor';
+      shortName = 'nofuemejor';
     }
 
     const point = Math.round((totalUserResult / numberOfResults * 10));
     const userResult = {
       name: scoreName.replace('%s', point),
+      shortName: shortName,
       point: point
     };
     this.setState({ userResult });
+
+    if (userResult.point) {
+      const messageListRef = firebase.database().ref('scores');
+      const newMessageRef = messageListRef.push();
+      newMessageRef.set({
+        'timestamp': Math.floor(Date.now() / 1000),
+        'result': userResult,
+        'perQuestion': this.props.data
+      });
+    }
   }
 
   render() {
@@ -152,7 +177,7 @@ class ReportCardComponent extends React.Component {
         app_id: "707991449304858",
         method: 'feed',
         link: 'http://lasillavacia.com/detector-de-mentiras',
-        picture: `https://github.com/La-Silla-Vacia/fact-quiz/raw/master/src/images/resultados/${this.state.finalScore}.png`,
+        picture: `https://github.com/La-Silla-Vacia/fact-quiz/raw/master/src/images/resultados/${this.state.userResult.shortName}.png`,
         name: 'Detector de mentiras - La Silla Vacia'
       },
       function (response) {

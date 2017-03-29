@@ -3,6 +3,7 @@
 .PrevNext {
   padding: 1em;
 
+
   &--compact {
     padding: 0.35em 0;
     text-align: right;
@@ -18,6 +19,9 @@
     padding: 0;
     overflow: hidden;
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
+
     @media screen and (max-width: $breakpoint) {
       font-size: 1.2em;
       margin-top: -2.75em;

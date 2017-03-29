@@ -136,7 +136,7 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <div className="row" style={{ margin: 0 }}>
-          <div className="title col-sm-4">
+          <div className="title col-sm-12 col-md-4">
             <span />
             <h2><a href="#">Chequealo tu mismo</a></h2>
             <p style={{maxWidth: '275px'}}>Donec id elit non mi porta gravida at eget metus. Etiam porta sem malesuada magna mollis euismod. Morbi
@@ -144,7 +144,7 @@ class AppComponent extends React.Component {
           </div>
 
 
-          <div className="index__inner col-sm-8">
+          <div className="index__inner col-sm-12 col-md-8">
             {/*<h2 className="index__title">*/}
             {/*La Silla's Fact Quiz*/}
             {/*</h2>*/}

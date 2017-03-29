@@ -1,9 +1,10 @@
 @import "variables";
 
-body {
-  background-color: $brand-lightgrey;
+@media screen and (max-width: 992px) {
+  .section-paz.content-display {
+    width: calc(100% - 40px);
+  }
 }
-
 #silla-interactive-container {
   font-size: 16px;
   line-height: 1.5;
@@ -16,6 +17,10 @@ body {
   position: relative;
   background-color: #fff;
   overflow: hidden;
+
+  &__inner {
+    padding: 0;
+  }
 
   &__title {
     font-family: 'Lato', sans-serif;

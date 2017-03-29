@@ -33,9 +33,6 @@
     width: 100%;
     max-width: 19em;
     float: left;
-    @media screen and (max-width: $screen-md-min) {
-      font-size: calc(1em + 1vw)
-    }
 
     &::before,
     &::after {
@@ -59,8 +56,8 @@
 
   &__logo {
     opacity: .2;
-    margin-left: 2em;
-    width: 140px;
+    float: right;
+    width: 120px;
     margin-bottom: 1em;
     @media screen and (max-width: 725px) {
       width: 20vw;

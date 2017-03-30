@@ -29,6 +29,19 @@
     }
   }
 
+  h5 {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+  }
+
+  img {
+    padding: 0;
+  }
+
+  &__footer {
+    text-align: center;
+  }
+
   &__results {
     background-color: $brand-lightgrey;
     border-radius: 3px;
@@ -54,5 +67,61 @@
         }
       }
     }
+  }
+
+  .leaderboard-table {
+    //margin-top: 1em;
+    font-size: .75em;
+
+    th {
+      text-transform: uppercase;
+      font-family: 'Lato', Helvetica, sans-serif;
+      font-weight: 700;
+      color: $brand-white;
+      background-color: $theme-color;
+      border: 0;
+    }
+  }
+
+  .col-sm-6 {
+    text-align: left;
+  }
+
+  &__form {
+    background-color: rgba(0,144,150,.1);
+    padding: .5em 1em .75em;
+    border-radius: 10px;
+    margin-bottom: 1em;
+
+    &__group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & input[type="text"] {
+      flex-grow: 1;
+      border: 1px solid $theme-color;
+      padding: 0 .5em;
+    }
+
+    & input[type="submit"] {
+      background-color: $theme-color;
+      border: 0;
+      color: $brand-white;
+      margin-left: .5em;
+      font-family: 'Lato', Helvetica, sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: .75em;
+    }
+  }
+
+  &__table--scroll {
+    height: 20em;
+    overflow: scroll;
+  }
+
+  .table {
+    margin-bottom: 0;
   }
 }

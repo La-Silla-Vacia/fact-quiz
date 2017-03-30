@@ -30,7 +30,7 @@ class ReportCardComponent extends React.Component {
     this.openRow = this.openRow.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.submitToLeaderBoard = this.submitToLeaderBoard.bind(this);
-    this.handleFacebookshare = this.handleFacebookshare.bind(this);
+    this.handleFacebookShare = this.handleFacebookShare.bind(this);
     this.handleTwitterShare = this.handleTwitterShare.bind(this);
   }
 
@@ -161,6 +161,15 @@ class ReportCardComponent extends React.Component {
 
   getLeaders() {
     const scores = this.state.allScores;
+
+    if (!scores.length) {
+      return (
+        <tr>
+          <td width="100%">Resultado es cargando</td>
+        </tr>
+      )
+    }
+
     return scores.map((score, index) => {
       return (
         <tr key={index}>
@@ -225,7 +234,7 @@ class ReportCardComponent extends React.Component {
             </div>
             <footer className="ReportCard__footer">
               <button className="ReportCard__social-btn ReportCard__social-btn--facebook"
-                      onClick={this.handleFacebookshare}>Facebook
+                      onClick={this.handleFacebookShare}>Facebook
               </button>
               <button className="ReportCard__social-btn ReportCard__social-btn--twitter"
                       onClick={this.handleTwitterShare}>Twitter
@@ -233,6 +242,8 @@ class ReportCardComponent extends React.Component {
             </footer>
           </div>
         </div>
+
+        {this.props.children}
       </div>
     );
   }
@@ -272,7 +283,7 @@ class ReportCardComponent extends React.Component {
       'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450');
   }
 
-  handleFacebookshare(event) {
+  handleFacebookShare(event) {
     event.preventDefault();
 
     FB.init({
@@ -289,7 +300,7 @@ class ReportCardComponent extends React.Component {
         method: 'feed',
         link: 'http://lasillavacia.com/detector-de-mentiras',
         picture: `https://github.com/La-Silla-Vacia/fact-quiz/raw/master/src/images/resultados/${this.state.userResult.shortName}.png`,
-        name: 'Detector de mentiras - La Silla Vacia'
+        name: 'Detector de mentiras - La Silla Vacía'
       },
       function () {
         /*if (response && response.post_id) {

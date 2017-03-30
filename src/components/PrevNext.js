@@ -34,7 +34,7 @@ class PrevNextComponent extends React.Component {
     let prevButton,
       nextButton;
     if (this.props.show.prev) {
-      if (this.props.type == 'compact') {
+      if (this.props.type === 'compact') {
         prevButton = (
           <button onClick={this.prev} className="PrevNext__button PrevNext__button--prev">&lt;</button>
         )
@@ -48,7 +48,7 @@ class PrevNextComponent extends React.Component {
     }
 
     if (this.props.show.next) {
-      if (this.props.type == 'compact') {
+      if (this.props.type === 'compact') {
         nextButton = (
           <button className="PrevNext__button PrevNext__button--next" onClick={this.next}>&gt;</button>
         );
@@ -64,8 +64,8 @@ class PrevNextComponent extends React.Component {
     return (
       <div className={cx(
         'PrevNext',
-        {'PrevNext--compact': this.props.type == 'compact'},
-        {'PrevNext--overlay': this.props.type == 'overlay'}
+        {'PrevNext--compact': this.props.type === 'compact'},
+        {'PrevNext--overlay': this.props.type === 'overlay'}
       )}>
         {prevButton}
         {nextButton}

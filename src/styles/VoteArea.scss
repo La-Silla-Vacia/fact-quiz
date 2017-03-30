@@ -158,7 +158,7 @@
 
     @media screen and (max-width: $breakpoint) {
       width: $mobileButtonsSize;
-      height: calc(100% - 3.5em);
+      height: calc(100% - 3em);
       background-image: linear-gradient(180deg, $good-green 0%, #FFCA28 50%, $wrong-red 100%);
       transform: inherit;
       top: 1em;

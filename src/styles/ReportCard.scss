@@ -40,6 +40,14 @@
 
   .row {
     margin: 0;
+    .col-sm-6 {
+      @media screen and (max-width: 768px) {
+        padding: 0;
+      }
+    }
+    .col-sm-12 {
+      padding: 0;
+    }
   }
 
   &__footer {
@@ -121,7 +129,7 @@
   }
 
   &__table--scroll {
-    height: 20em;
+    max-height: 20em;
     overflow: scroll;
   }
 

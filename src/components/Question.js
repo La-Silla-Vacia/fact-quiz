@@ -27,6 +27,8 @@ class QuestionComponent extends React.Component {
 
   componentDidMount() {
     this.watchKeys();
+
+    this.checkComponent(this.props);
   }
 
   watchKeys() {
@@ -81,7 +83,7 @@ class QuestionComponent extends React.Component {
       answered: true
     });
 
-    if (this.props.score == id) {
+    if (this.props.score === id) {
       this.setState({result: true});
     } else {
       this.setState({result: false});
@@ -133,6 +135,34 @@ class QuestionComponent extends React.Component {
 
   componentWillReceiveProps(newprops) {
     if (newprops.id === this.props.id) return;
+    let current = false,
+      result = false,
+      questionScore = false;
+    if (newprops.answered) {
+      current = newprops.answered.answer;
+      questionScore = newprops.answered.result;
+      if (newprops.answered.result === 0) {
+        result = true;
+      }
+    }
+
+    this.setState({
+      currentQuestion: newprops.id,
+      answered: newprops.answered,
+      current: current,
+      result: result,
+      showingResult: newprops.answered,
+      showingResultTimer: false,
+      alreadyAnswered: newprops.answered,
+      questionScore: questionScore
+    });
+
+    if (newprops.id) {
+      location.hash = '#' + (newprops.id + 1);
+    }
+  }
+
+  checkComponent(newprops) {
     let current = false,
       result = false,
       questionScore = false;

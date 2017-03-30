@@ -101,7 +101,13 @@ class AppComponent extends React.Component {
         <ReportCard
           data={this.state.results}
           questions={this.state.questions}
-        />
+        >
+          <PrevNext
+            callback={this.prevNext}
+            show={buttonsToShow}
+            type="overlay"
+          />
+        </ReportCard>
       )
     } else {
       questionObj = (
@@ -125,11 +131,6 @@ class AppComponent extends React.Component {
       indexCounter = (
         <div className="index__question-counter">
           {currentIndex + 1}/{totalQuestions}
-          {/*<PrevNext*/}
-          {/*callback={this.prevNext}*/}
-          {/*show={buttonsToShow}*/}
-          {/*type="compact"*/}
-          {/*/>*/}
         </div>
       );
 
@@ -145,9 +146,6 @@ class AppComponent extends React.Component {
 
 
           <div className="index__inner col-sm-12 col-md-8">
-            {/*<h2 className="index__title">*/}
-            {/*La Silla's Fact Quiz*/}
-            {/*</h2>*/}
             {error}
             {indexCounter}
             {reportCard}

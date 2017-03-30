@@ -56,9 +56,14 @@ function getDefaultModules() {
   };
 }
 
+let publicPath = 'https://la-silla-vacia.github.io/fact-quiz/assets/';
+if (process.env.REACT_WEBPACK_ENV) {
+  publicPath = '/assets/';
+}
+
 module.exports = {
   srcPath: srcPath,
-  publicPath: 'https://la-silla-vacia.github.io/fact-quiz/assets/',
+  publicPath: publicPath,
   port: dfltPort,
   getDefaultModules: getDefaultModules
 };

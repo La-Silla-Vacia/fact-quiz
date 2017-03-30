@@ -144,15 +144,15 @@ class ReportCardComponent extends React.Component {
   getForm() {
     if (this.state.submitted) {
       return (
-        <em>Succesfully submitted your name to the leaderboard</em>
+        <p>Tu nombre ha sido registrado</p>
       )
     } else {
       return (
         <form onSubmit={this.submitToLeaderBoard}>
-          <p>Want to be on our leaderboard?</p>
+          <p>Registrate en nuestro top</p>
           <div className="ReportCard__form__group">
             <input type="text" value={this.state.username} onChange={this.handleNameChange} placeholder="Tu nombre" />
-            <input type="submit" value="submit" />
+            <input type="submit" value="Enviar" />
           </div>
         </form>
       );
@@ -160,7 +160,7 @@ class ReportCardComponent extends React.Component {
   }
 
   getLeaders() {
-    const scores = this.state.allScores.sort(dynamicSort('result')).reverse();
+    const scores = this.state.allScores;
     return scores.map((score, index) => {
       return (
         <tr key={index}>
@@ -183,7 +183,7 @@ class ReportCardComponent extends React.Component {
       <div className="ReportCard">
         <h3 className="Question__title">Resultado</h3>
         <span><strong>{this.state.userResult.name}</strong></span>
-        <p>Tu tienes un resultado de {score}/100.</p>
+        <p>Tu resultado es {score}/100</p>
 
         <div className="ReportCard__social row">
             <div className="col-sm-6">
@@ -261,7 +261,7 @@ class ReportCardComponent extends React.Component {
     scoresRef.orderByChild('result').limitToLast(25).on('child_added', (snapshot) => {
       allScores.push(snapshot.val());
     });
-    this.setState({ allScores: allScores });
+    this.setState({ allScores: allScores.sort(dynamicSort('result')).reverse() });
   }
 
   handleTwitterShare(event) {

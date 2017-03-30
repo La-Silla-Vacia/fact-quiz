@@ -33,7 +33,6 @@ class QuestionComponent extends React.Component {
 
   watchKeys() {
     document.addEventListener('keydown', (event) => {
-      // console.log(event.keyCode);
       let key = false;
       switch (event.keyCode) {
         case 49:

@@ -57,7 +57,7 @@ function getDefaultModules() {
 }
 
 let publicPath = 'https://la-silla-vacia.github.io/fact-quiz/assets/';
-if (process.env.REACT_WEBPACK_ENV) {
+if (process.env.REACT_WEBPACK_ENV === 'dev') {
   publicPath = '/assets/';
 }
 

@@ -1,3 +1,4 @@
+/*global FB */
 'use strict';
 import React from 'react';
 import firebase from 'firebase';
@@ -12,6 +13,7 @@ const config = {
   messagingSenderId: '433947191175'
 };
 let firebaseDone = false;
+
 class ReportCardComponent extends React.Component {
 
   constructor() {
@@ -21,7 +23,7 @@ class ReportCardComponent extends React.Component {
       userResult: {},
       allScores: [],
       username: '',
-      openRow: 999,
+      formErrorMessage: '',
       finalScore: 0,
       leaderScore: '...',
       submitted: false
@@ -40,6 +42,7 @@ class ReportCardComponent extends React.Component {
 
   componentDidMount() {
     this.setupFirebase();
+    this.validateCookie();
   }
 
   setupFirebase() {
@@ -53,27 +56,6 @@ class ReportCardComponent extends React.Component {
   componentWillReceiveProps() {
     this.getUserScore();
     this.getLeaderBoard();
-  }
-
-  getAllQuestions() {
-    return this.props.questions.map((question, index) => {
-      let open = false;
-      if (this.state.openRow === index) {
-        open = true;
-      }
-
-      return (
-        <QuoteRow
-          key={index}
-          index={index + 1}
-          quote={question.quote}
-          answer={question.explicacion}
-          result={Math.round(this.props.data[index].result)}
-          callback={this.openRow}
-          open={open}
-        />
-      )
-    });
   }
 
   openRow(e) {
@@ -151,9 +133,10 @@ class ReportCardComponent extends React.Component {
         <form onSubmit={this.submitToLeaderBoard}>
           <p>Registrate en nuestro top</p>
           <div className="ReportCard__form__group">
-            <input type="text" value={this.state.username} onChange={this.handleNameChange} placeholder="Tu nombre" />
+            <input type="text" value={this.state.username} size="23" maxLength="23" onChange={this.handleNameChange} placeholder="Tu nombre" />
             <input type="submit" value="Enviar" />
           </div>
+          <small>{this.state.formErrorMessage}</small>
         </form>
       );
     }
@@ -173,7 +156,8 @@ class ReportCardComponent extends React.Component {
     return scores.map((score, index) => {
       return (
         <tr key={index}>
-          <td width="75%">{score.name}</td>
+          <td width="5%">{ index + 1 }</td>
+          <td width="70%">{score.name}</td>
           <td width="25%">{score.result}</td>
         </tr>
       )
@@ -195,7 +179,7 @@ class ReportCardComponent extends React.Component {
         <p>Tu resultado es {score}/100</p>
 
         <div className="ReportCard__social row">
-            <div className="col-sm-6">
+          <div className="col-sm-6">
             <h5>¿Quién es el mejor detector de mentiras?</h5>
 
             <div className="ReportCard__form">
@@ -207,7 +191,8 @@ class ReportCardComponent extends React.Component {
               <table className="table leaderboard-table">
                 <thead>
                 <tr>
-                  <th width="75%">Nombre</th>
+                  <th width="5%">#</th>
+                  <th width="70%">Nombre</th>
                   <th width="25%">Score</th>
                 </tr>
                 </thead>
@@ -254,7 +239,10 @@ class ReportCardComponent extends React.Component {
 
   submitToLeaderBoard(e) {
     e.preventDefault();
-    if (!this.state.username) return;
+    if (this.validateName()) {
+      this.setState({ formErrorMessage: this.validateName() });
+      return;
+    }
     const messageListRef = firebase.database().ref('leaderboard');
     const newMessageRef = messageListRef.push();
     newMessageRef.set({
@@ -263,7 +251,26 @@ class ReportCardComponent extends React.Component {
       'name': this.state.username
     });
 
-    this.setState({ submitted: true })
+    this.setState({ submitted: true });
+    document.cookie = 'userSubmitted=yes; expires=Thu, 18 Dec 2020 12:00:00 UTC';
+  }
+
+  validateCookie() {
+    if (getCookie('userSubmitted')) {
+      this.setState({submitted: true});
+      return false;
+    }
+    return true;
+  }
+
+  validateName() {
+    const name = this.state.username;
+    if (!this.validateCookie) return 'Ya has enviado tu nombre una vez.';
+    if (hasNumbers(name)) return 'Su nombre no puede contener números';
+    if (name.length < 4) return 'Su nombre debe tener al menos 4 caracteres';
+    if (name.length > 23) return 'Su nombre no puede tener más de 23 caracteres';
+
+    return false;
   }
 
   getLeaderBoard() {
@@ -312,6 +319,11 @@ class ReportCardComponent extends React.Component {
   }
 }
 
+function hasNumbers(t) {
+  const regex = /\d/g;
+  return regex.test(t);
+}
+
 function dynamicSort(property) {
   let sortOrder = 1;
   if (property[0] === '-') {
@@ -322,6 +334,22 @@ function dynamicSort(property) {
     const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
     return result * sortOrder;
   }
+}
+
+function getCookie(cname) {
+  const name = cname + '=';
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
 }
 
 ReportCardComponent.displayName = 'ReportCardComponent';

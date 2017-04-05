@@ -1,10 +1,31 @@
 @import "variables";
 
+.article-sidebar.col-md-4 {
+  display: none;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .article-content.col-sm-12.col-md-8 {
+    width: 98%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .article-content.col-sm-12.col-md-8 {
+    width: 85%;
+  }
+}
+
+.field-item > p, .img-container {
+  max-width: 713px;
+}
+
 @media screen and (max-width: 992px) {
   .section-paz.content-display {
     width: calc(100% - 40px);
   }
 }
+
 #silla-interactive-container {
   font-size: 16px;
   line-height: 1.5;
@@ -24,18 +45,30 @@
 
   &__title {
     font-family: 'Lato', sans-serif;
-    font-size: 2em;
-    border-bottom: 1px solid $brand-grey;
-    background-color: $brand-color;
-    color: $brand-white;
-    margin: 0;
-    padding: 0.75em;
+    font-size: 1.4em;
+    color: $theme-color;
     font-weight: 600;
     border-color: $brand-white;
     text-align: right;
+    float: right;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 55px 0 0;
     @media screen and (max-width: $screen-md-min) {
       font-size: calc(1.5em + 1vw);
     }
+
+    h2 {
+      border-bottom: 1px solid $theme-color;
+      margin-top: 0;
+      padding-bottom: .2em;
+      font-size: 18px;
+    }
+  }
+
+  &__introtext p {
+    max-width: 275px;
+    font-size: 16px;
   }
 
   &__question-counter {

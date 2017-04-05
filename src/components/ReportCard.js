@@ -5,15 +5,6 @@ import firebase from 'firebase';
 
 require('styles/ReportCard.scss');
 
-const config = {
-  apiKey: 'AIzaSyBl-pcS2XqyKb-79QuQvsIwsWJ1Zx693i4',
-  authDomain: 'detector-de-mentiras-69bb7.firebaseapp.com',
-  databaseURL: 'https://detector-de-mentiras-69bb7.firebaseio.com',
-  storageBucket: 'detector-de-mentiras-69bb7.appspot.com',
-  messagingSenderId: '433947191175'
-};
-let firebaseDone = false;
-
 class ReportCardComponent extends React.Component {
 
   constructor() {
@@ -41,15 +32,7 @@ class ReportCardComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.setupFirebase();
     this.validateCookie();
-  }
-
-  setupFirebase() {
-    if (!firebaseDone) {
-      firebase.initializeApp(config);
-      firebaseDone = true;
-    }
     this.getLeaderBoard();
   }
 
@@ -186,14 +169,14 @@ class ReportCardComponent extends React.Component {
               {form}
             </div>
 
-            <h5>Nosotros top 25</h5>
+            <h5>Los 50 mejores del último día</h5>
             <div className="ReportCard__table">
               <table className="table leaderboard-table">
                 <thead>
                 <tr>
                   <th width="5%">#</th>
                   <th width="70%">Nombre</th>
-                  <th width="25%">Score</th>
+                  <th width="25%">Puntaje</th>
                 </tr>
                 </thead>
               </table>
@@ -252,11 +235,15 @@ class ReportCardComponent extends React.Component {
     });
 
     this.setState({ submitted: true });
-    document.cookie = 'userSubmitted=yes; expires=Thu, 18 Dec 2020 12:00:00 UTC';
+
+    var exdays = 1;
+    var exdate = new Date();
+    exdate.setHours(exdate.getHours() + exdays);
+    document.cookie = 'userSubmittedPuntos=yes; expires=' + exdate.toUTCString();
   }
 
   validateCookie() {
-    if (getCookie('userSubmitted')) {
+    if (getCookie('userSubmittedPuntos')) {
       this.setState({submitted: true});
       return false;
     }
@@ -276,9 +263,16 @@ class ReportCardComponent extends React.Component {
   getLeaderBoard() {
     const allScores = [];
     const scoresRef = firebase.database().ref('leaderboard');
-    scoresRef.orderByChild('result').limitToLast(25).on('child_added', (snapshot) => {
-      allScores.push(snapshot.val());
+    scoresRef.orderByChild('result').on('child_added', (snapshot) => {
+      const timestamp = snapshot.val().timestamp;
+      const last24Stamp = Math.floor(Date.now() / 1000) - (24 * 3600);
+      if (timestamp > last24Stamp) {
+        allScores.push(snapshot.val());
+      }
     });
+    if (!allScores.length) {
+      allScores.push({name: 'Hoy no se han registrado resultados'});
+    }
     this.setState({ allScores: allScores.sort(dynamicSort('result')).reverse() });
   }
 

@@ -59,6 +59,9 @@ class QuestionComponent extends React.Component {
         case 56:
           key = 8;
           break;
+        case 57:
+          key = 9;
+          break;
         case 13:
           key = 'enter';
           break;
@@ -69,7 +72,7 @@ class QuestionComponent extends React.Component {
           event.preventDefault();
           this.props.switchQuestion('next');
         }
-      } else if (key >= 1 && key <= 8) {
+      } else if (key >= 1 && key <= 9) {
         this.handleSelection(key);
       }
 
@@ -92,8 +95,8 @@ class QuestionComponent extends React.Component {
   }
 
   submitResult(id) {
-    let difference = 8;
-    if (id < 8) {
+    let difference = 9;
+    if (id < 9) {
       difference = QuestionComponent.getDifference(id, this.props.score) * 1.75
     }
 

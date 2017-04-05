@@ -17,8 +17,8 @@
   &__title {
     color: $brand-lightgrey-dark;
     text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 300;
+    font-size: 18px !important;
+    font-weight: 300 !important;
     @media screen and (max-width: $screen-md-min) {
       font-size: calc(1em + 1vmin);
     }
@@ -58,7 +58,6 @@
     opacity: .2;
     float: right;
     width: 120px;
-    margin-bottom: 1em;
     @media screen and (max-width: 725px) {
       width: 20vw;
       margin-left: 3vw;

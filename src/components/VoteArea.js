@@ -30,12 +30,16 @@ class VoteButtonComponent extends React.Component {
         'value': 5
       },
       {
-        'name': 'Falso',
+        'name': 'Engañoso',
         'value': 6
       },
       {
-        'name': 'Inchequable',
+        'name': 'Falso',
         'value': 7
+      },
+      {
+        'name': 'Inchequeable',
+        'value': 8
       }
     ]
   };
@@ -52,7 +56,7 @@ class VoteButtonComponent extends React.Component {
   }
 
   setInchequable() {
-    this.handleSelection(8);
+    this.handleSelection(9);
   }
 
   handleSelection(id) {
@@ -98,7 +102,7 @@ class VoteButtonComponent extends React.Component {
   render() {
     const buttons = this.getButtons();
     let inchequableActive = false;
-    if (this.props.selected === 7) inchequableActive = true;
+    if (this.props.selected === 8) inchequableActive = true;
 
     return (
       <div className={cx(

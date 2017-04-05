@@ -28,7 +28,7 @@
     @import url("http://lasillavacia.com/sites/all/modules/webform/css/webform.css?olugdb");
     @import url("http://lasillavacia.com/sites/all/modules/panels/plugins/layouts/onecol/onecol.css?olugdb");
   </style>
-  <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap/3.3.5/css/bootstrap.css" media="all"/>
+  <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap/3.3.5/css/bootstrap.css" media="all" />
   <style>
     @import url("http://lasillavacia.com/sites/all/themes/bootstrap/css/3.3.5/overrides.min.css?olugdb");
     @import url("http://lasillavacia.com/sites/all/themes/lasillavacia/css/style.css?olugdb");
@@ -43,27 +43,35 @@
   </style>
 </head>
 <body>
-<div id="silla-interactive-container">APPLICATION CONTENT</div>
-
-<script>
-  var sillaInteractiveData = {
-    data: [
-      {
-        "id": 0,
-        "quote": "Se hizo elegir mintiendo sobre sus títulos profesionales como el de su maestría y su doctorado.",
-        "explicacion": "<p>Efectivamente durante más de una década Peñalosa apareció en muchos medios, incluyendo La Silla, como poseedor de una maestría y un doctorado. Así aparece, además, en la contrasolapa de su libro “Capitalismo ¿La mejor opción?”, así lo presentaron en campaña en diferentes medios y así fue presentado incluso en su ceremonia de posesión como alcalde el 1 de enero de 2016.</p><p>A inicios del año pasado los investigadores Carlos Carrillo y Juana Afanador <a href='http://www.elespectador.com/noticias/bogota/el-tal-doctorado-de-penalosa-no-existe-articulo-625911' target='_blank'>DEMOSTRARON QUE NO TIENE DOCTORADO</a>, y hoy su biografía en la página web de la alcaldía pone como posgrados un diploma en Gobierno del IIAP en París y un DESS (Diploma de estudios superiores especializados, semejante a una especialización) en Administración Pública de la Universidad de París II</p>",
-        "score": 1
+  <div id="wrapper">
+    <div class="article-main-content">
+      <div id="silla-interactive-container">APPLICATION CONTENT</div>
+    </div>
+  </div>
+  <script>
+    var sillaInteractiveData = {
+      title: 'Lorem ipsum title',
+      intro: {
+        "title": "My title:)",
+        "content": "<em>My content:)</em>"
       },
-      {
-        "id": 1,
-        "quote": "Se hizo elegir mintiendo sobre sus títulos profesionales como el de su maestría y su doctorado.",
-        "explicacion": "<p>Efectivamente durante más de una década Peñalosa apareció en muchos medios, incluyendo La Silla, como poseedor de una maestría y un doctorado. Así aparece, además, en la contrasolapa de su libro “Capitalismo ¿La mejor opción?”, así lo presentaron en campaña en diferentes medios y así fue presentado incluso en su ceremonia de posesión como alcalde el 1 de enero de 2016.</p><p>A inicios del año pasado los investigadores Carlos Carrillo y Juana Afanador <a href='http://www.elespectador.com/noticias/bogota/el-tal-doctorado-de-penalosa-no-existe-articulo-625911' target='_blank'>DEMOSTRARON QUE NO TIENE DOCTORADO</a>, y hoy su biografía en la página web de la alcaldía pone como posgrados un diploma en Gobierno del IIAP en París y un DESS (Diploma de estudios superiores especializados, semejante a una especialización) en Administración Pública de la Universidad de París II</p>",
-        "score": 4
-      }
-    ]
-  }
-</script>
-<script>__REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__</script>
-<script type="text/javascript" src="assets/app.js"></script>
-</body>
+      data: [
+        {
+          "id": 0,
+          "quote": "Se hizo elegir mintiendo sobre sus títulos profesionales como el de su maestría y su doctorado.",
+          "explicacion": "<p>Efectivamente durante más de una década Peñalosa apareció en muchos medios, incluyendo La Silla, como poseedor de una maestría y un doctorado. Así aparece, además, en la contrasolapa de su libro “Capitalismo ¿La mejor opción?”, así lo presentaron en campaña en diferentes medios y así fue presentado incluso en su ceremonia de posesión como alcalde el 1 de enero de 2016.</p><p>A inicios del año pasado los investigadores Carlos Carrillo y Juana Afanador <a href='http://www.elespectador.com/noticias/bogota/el-tal-doctorado-de-penalosa-no-existe-articulo-625911' target='_blank'>DEMOSTRARON QUE NO TIENE DOCTORADO</a>, y hoy su biografía en la página web de la alcaldía pone como posgrados un diploma en Gobierno del IIAP en París y un DESS (Diploma de estudios superiores especializados, semejante a una especialización) en Administración Pública de la Universidad de París II</p>",
+          "score": 1
+        },
+        {
+          "id": 1,
+          "quote": "Se hizo elegir mintiendo sobre sus títulos profesionales como el de su maestría y su doctorado.",
+          "explicacion": "<p>Efectivamente durante más de una década Peñalosa apareció en muchos medios, incluyendo La Silla, como poseedor de una maestría y un doctorado. Así aparece, además, en la contrasolapa de su libro “Capitalismo ¿La mejor opción?”, así lo presentaron en campaña en diferentes medios y así fue presentado incluso en su ceremonia de posesión como alcalde el 1 de enero de 2016.</p><p>A inicios del año pasado los investigadores Carlos Carrillo y Juana Afanador <a href='http://www.elespectador.com/noticias/bogota/el-tal-doctorado-de-penalosa-no-existe-articulo-625911' target='_blank'>DEMOSTRARON QUE NO TIENE DOCTORADO</a>, y hoy su biografía en la página web de la alcaldía pone como posgrados un diploma en Gobierno del IIAP en París y un DESS (Diploma de estudios superiores especializados, semejante a una especialización) en Administración Pública de la Universidad de París II</p>",
+          "score": 4
+        }
+      ]
+    }
+  </script>
+  <script>__REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__</script>
+  <script type="text/javascript" src="assets/app.js"></script>
+  </body>
 </html>

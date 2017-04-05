@@ -2,9 +2,24 @@
 require('styles/App.scss');
 
 import React from 'react';
+import * as firebase from 'firebase';
+
 import Question from './Question';
 import PrevNext from './PrevNext';
 import ReportCard from './ReportCard';
+
+const config = {
+  apiKey: 'AIzaSyBl-pcS2XqyKb-79QuQvsIwsWJ1Zx693i4',
+  authDomain: 'detector-de-mentiras-69bb7.firebaseapp.com',
+  databaseURL: 'https://detector-de-mentiras-69bb7.firebaseio.com',
+  storageBucket: 'detector-de-mentiras-69bb7.appspot.com',
+  messagingSenderId: '433947191175'
+};
+let firebaseDone = false;
+if (!firebaseDone) {
+  firebase.initializeApp(config);
+  firebaseDone = true;
+}
 
 class AppComponent extends React.Component {
 
@@ -15,7 +30,9 @@ class AppComponent extends React.Component {
       currentQuestionIndex: 0,
       error: false,
       questions: [],
-      results: []
+      results: [],
+      introText: false,
+      title: false
     };
 
     this.prevNext = this.prevNext.bind(this);
@@ -26,7 +43,7 @@ class AppComponent extends React.Component {
 
   componentDidMount() {
     this.getData();
-
+    // this.setupFirebase();
     // const hash = Number(window.location.hash.replace('#', ''));
     // if (hash) this.setState({currentQuestionIndex: hash - 1});
   }
@@ -43,8 +60,22 @@ class AppComponent extends React.Component {
       this.setState({ error: 'Error: No se pudieron encontrar los datos de la pregunta.' });
       return;
     }
+    let introText = {
+      title: 'Chequealo tu mismo',
+      content: '<p>Le aplicamos nuestro detector de mentiras al volante oficial del Centro Democrático para la marcha de este sábado</p><p>De las seis afirmaciones sobre los acuerdos entre el Gobierno y las Farc tres son apresuradas, dos son falsas y una es engañosa. </p>'
+    };
 
-    this.setState({ questions: sillaInteractiveData.data });
+    if (sillaInteractiveData.intro) {
+      introText = {
+        title: sillaInteractiveData.intro.title,
+        content: sillaInteractiveData.intro.content
+      }
+    }
+
+    let title = false;
+    if (sillaInteractiveData.title) title = sillaInteractiveData.title;
+
+    this.setState({ questions: sillaInteractiveData.data, introText, title });
   }
 
   prevNext(e) {
@@ -134,15 +165,23 @@ class AppComponent extends React.Component {
         </div>
       );
 
+    let title;
+    if (this.state.title) {
+      title = (
+        <div className="col-sm-8 index__title"><h2>{this.state.title}</h2></div>
+      );
+    }
+
     return (
       <div className="index">
         <div className="row" style={{ margin: 0 }}>
-          <div className="title col-sm-12 col-md-4">
+          <div className="title col-sm-12 col-md-4 index__introtext">
             <span />
-            <h2><a href="#">Chequealo tu mismo</a></h2>
-            <p style={{maxWidth: '275px'}}>Donec id elit non mi porta gravida at eget metus. Etiam porta sem malesuada magna mollis euismod. Morbi
-              leo risus, porta ac consectetur ac, vestibulum at eros. Aenean lacinia bibendum nulla sed consectetur.</p>
+            <h2><a href="#">{ this.state.introText.title }</a></h2>
+            <div dangerouslySetInnerHTML={{__html: this.state.introText.content}}/>
           </div>
+
+          {title}
 
 
           <div className="index__inner col-sm-12 col-md-8">

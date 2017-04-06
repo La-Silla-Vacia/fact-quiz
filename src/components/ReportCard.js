@@ -236,7 +236,7 @@ class ReportCardComponent extends React.Component {
 
     this.setState({ submitted: true });
 
-    var exdays = 1;
+    var exdays = 24;
     var exdate = new Date();
     exdate.setHours(exdate.getHours() + exdays);
     document.cookie = 'userSubmittedPuntos=yes; expires=' + exdate.toUTCString();

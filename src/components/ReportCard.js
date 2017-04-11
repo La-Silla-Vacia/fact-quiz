@@ -96,7 +96,15 @@ class ReportCardComponent extends React.Component {
     this.setState({ userResult });
 
     if (userResult.point) {
-      const messageListRef = firebase.database().ref('scores');
+
+      let messageListRef;
+      if (typeof lsviContentId !== 'undefined') {
+        messageListRef = firebase.database().ref(`scores/${lsviContentId}`);
+      } else {
+        messageListRef = firebase.database().ref('scores');
+      }
+
+      // const messageListRef = firebase.database().ref('scores');
       const newMessageRef = messageListRef.push();
       newMessageRef.set({
         'timestamp': Math.floor(Date.now() / 1000),
@@ -226,7 +234,13 @@ class ReportCardComponent extends React.Component {
       this.setState({ formErrorMessage: this.validateName() });
       return;
     }
-    const messageListRef = firebase.database().ref('leaderboard');
+
+    let messageListRef;
+    if (typeof lsviContentId !== 'undefined') {
+      messageListRef = firebase.database().ref(`leaderboard/${lsviContentId}`);
+    } else {
+      messageListRef = firebase.database().ref('leaderboard');
+    }
     const newMessageRef = messageListRef.push();
     newMessageRef.set({
       'timestamp': Math.floor(Date.now() / 1000),
@@ -262,7 +276,13 @@ class ReportCardComponent extends React.Component {
 
   getLeaderBoard() {
     const allScores = [];
-    const scoresRef = firebase.database().ref('leaderboard');
+    let scoresRef;
+    if (typeof lsviContentId !== 'undefined') {
+      scoresRef = firebase.database().ref(`leaderboard/${lsviContentId}`);
+    } else {
+      scoresRef = firebase.database().ref('leaderboard');
+    }
+
     scoresRef.orderByChild('result').on('child_added', (snapshot) => {
       const timestamp = snapshot.val().timestamp;
       const last24Stamp = Math.floor(Date.now() / 1000) - (24 * 3600);

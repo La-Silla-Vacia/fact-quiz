@@ -76,25 +76,39 @@ class QuestionComponent extends React.Component {
   }
 
   getScores() {
-    fetch('https://detector-de-mentiras-69bb7.firebaseio.com/scores.json')
+    let url = 'https://detector-de-mentiras-69bb7.firebaseio.com/scores.json';
+    if (typeof lsviContentId !== 'undefined') {
+      url = `https://detector-de-mentiras-69bb7.firebaseio.com/scores/${lsviContentId}.json`;
+    }
+
+    fetch(url)
       .then((result) => {
         return result.json();
       }).then((result) => {
 
-      const questions = [{}, {}, {}, {}, {}, {}];
+      const questions = [];
       let i = 0;
       for (let [key, val] of Object.entries(result)) {
-        if (val.perQuestion.length !== 6) continue;
-        val.perQuestion.map((key, index) => {
-          const score = key.answer;
-          if (questions[index][key.answer]) {
-            questions[index][score]++;
-          } else {
-            questions[index][score] = 1;
+        if (!val.perQuestion) continue;
+        let index = 0;
+        for (let key of val.perQuestion) {
+          if (key) {
+            const score = key.answer;
+            if (score) {
+              if (!questions[index]) questions[index] = {};
+              if (questions[index][score]) {
+                questions[index][score]++;
+              } else {
+                questions[index][score] = 1;
+              }
+              index++;
+            }
           }
-        });
+        }
         i++;
       }
+
+      console.log(`Total answers: ${i}`);
 
       this.setState({ allScores: questions, totalAnswers: i });
     });
@@ -320,7 +334,7 @@ class QuestionComponent extends React.Component {
       )
     } else {
       return (
-        <div>Es cargando</div>
+        <div>...</div>
       )
     }
   }

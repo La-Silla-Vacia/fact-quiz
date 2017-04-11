@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import Question from './Question';
 import PrevNext from './PrevNext';
 import ReportCard from './ReportCard';
+import SingleCheck from './SingleCheck';
 
 const config = {
   apiKey: 'AIzaSyBl-pcS2XqyKb-79QuQvsIwsWJ1Zx693i4',
@@ -32,13 +33,15 @@ class AppComponent extends React.Component {
       questions: [],
       results: [],
       introText: false,
-      title: false
+      title: false,
+      showAll: false
     };
 
     this.prevNext = this.prevNext.bind(this);
     this.prevQuestion = this.prevQuestion.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
     this.saveData = this.saveData.bind(this);
+    this.handleShowAll = this.handleShowAll.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +49,23 @@ class AppComponent extends React.Component {
     // this.setupFirebase();
     // const hash = Number(window.location.hash.replace('#', ''));
     // if (hash) this.setState({currentQuestionIndex: hash - 1});
+
+    this.setShortLink();
+  }
+
+  setShortLink() {
+    const head = document.head || document.getElementsByTagName('head')[0];
+    const links = head.getElementsByTagName('link');
+    for (let link in links) {
+      if (links.hasOwnProperty(link)) {
+        const l = links[link];
+        if (l.rel === 'shortlink') {
+          const url = l.href.split('/');
+          const contentId = url[url.length - 1];
+          window.lsviContentId = contentId;
+        }
+      }
+    }
   }
 
   getData() {
@@ -103,6 +123,18 @@ class AppComponent extends React.Component {
       result: data.difference
     };
     this.setState({ results });
+  }
+
+  getEverything() {
+    return this.state.questions.map((question, index) => {
+      return (
+        <SingleCheck key={index} {...question} />
+      )
+    });
+  }
+
+  handleShowAll() {
+    this.setState({ showAll: !this.state.showAll });
   }
 
   render() {
@@ -172,24 +204,45 @@ class AppComponent extends React.Component {
       );
     }
 
+    const everyting = this.getEverything();
+    let introPiece = (
+      <div className="title col-sm-12 col-md-4 index__introtext">
+        <span />
+        <h2><a href="#">{ this.state.introText.title }</a></h2>
+        <div dangerouslySetInnerHTML={{ __html: this.state.introText.content }} />
+      </div>
+    );
+
+    let dataContent = (
+      <div className="index__inner col-sm-12 col-md-8">
+        {error}
+        {indexCounter}
+        {reportCard}
+        {questionObj}
+
+        <button onClick={this.handleShowAll} className="index__showAll">Quiero ver todas las respuestas</button>
+      </div>
+    );
+    if (this.state.showAll) {
+      introPiece = '';
+      dataContent = (
+        <div className="index__inner col-sm-12 col-md-10">
+          {everyting}
+          <button onClick={this.handleShowAll} className="index__showAll">Quiero que el cuestionario ver</button>
+        </div>
+      )
+    }
+
+
     return (
       <div className="index">
         <div className="row" style={{ margin: 0 }}>
-          <div className="title col-sm-12 col-md-4 index__introtext">
-            <span />
-            <h2><a href="#">{ this.state.introText.title }</a></h2>
-            <div dangerouslySetInnerHTML={{__html: this.state.introText.content}}/>
-          </div>
+          {introPiece}
 
           {title}
 
 
-          <div className="index__inner col-sm-12 col-md-8">
-            {error}
-            {indexCounter}
-            {reportCard}
-            {questionObj}
-          </div>
+          {dataContent}
         </div>
       </div>
     );

@@ -26,6 +26,37 @@
   }
 }
 
+.cta-btn {
+  padding: 5px 10px;
+  border: 1px solid #009096;
+  border-radius: 3px;
+  display: inline-block;
+  color: #009096;
+  text-decoration: none;
+  margin: 1em;
+  font-size: 0.8em
+}
+
+.cta-btn::after {
+  content: '→';
+  display: inline-block;
+  margin-left: .5em;
+  transition: .3s
+}
+
+.cta-btn:hover {
+  background: #009096;
+  color: #fff
+}
+
+.cta-btn:hover::after {
+  margin-left: 1em
+}
+
+.Question__explanation p {
+  font-size: 16px !important;
+}
+
 #silla-interactive-container {
   font-size: 16px;
   line-height: 1.5;
@@ -56,6 +87,8 @@
     margin: 55px 0 0;
     @media screen and (max-width: $screen-md-min) {
       font-size: calc(1.5em + 1vw);
+      clear: both;
+      width: 100%;
     }
 
     h2 {
@@ -92,6 +125,14 @@
     font-style: italic;
     font-size: .75em;
     text-align: right;
+  }
+
+  &__showAll {
+    background-color: transparent;
+    border: 0;
+    font-size: .675em;
+    float: right;
+    color: #979797;
   }
 
 }

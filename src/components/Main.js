@@ -3,6 +3,7 @@ require('styles/App.scss');
 
 import React from 'react';
 import * as firebase from 'firebase';
+import 'whatwg-fetch';
 
 import Question from './Question';
 import PrevNext from './PrevNext';
@@ -34,7 +35,8 @@ class AppComponent extends React.Component {
       results: [],
       introText: false,
       title: false,
-      showAll: false
+      showAll: false,
+      loading: true
     };
 
     this.prevNext = this.prevNext.bind(this);
@@ -95,7 +97,34 @@ class AppComponent extends React.Component {
     let title = false;
     if (sillaInteractiveData.title) title = sillaInteractiveData.title;
 
-    this.setState({ questions: sillaInteractiveData.data, introText, title });
+    if (sillaInteractiveData.data) {
+      this.setState({ questions: sillaInteractiveData.data, introText, title, loading: false });
+    } else if (sillaInteractiveData.dataUrl) {
+      this.setState({introText, title});
+      this.fetchData(sillaInteractiveData.dataUrl);
+    }
+  }
+
+  fetchData(dataUrl) {
+    fetch(dataUrl)
+      .then((response) => {
+        return response.json()
+      }).then((json) => {
+      const questions = [];
+      json.map((question) => {
+        const thisQ = {
+          id: question.id,
+          quote: question.afirmacion,
+          explicacion: question.explicacion,
+          score: question.score
+        };
+        questions.push(thisQ);
+      });
+      this.setState({questions, loading: false});
+    }).catch((ex) => {
+      this.setState({ error: 'Error: No se pudieron encontrar los datos de la pregunta.' });
+      console.log('parsing failed', ex);
+    })
   }
 
   prevNext(e) {
@@ -118,7 +147,9 @@ class AppComponent extends React.Component {
 
   saveData(data) {
     const results = this.state.results;
-    results[data.question] = {
+    let question = data.question;
+    if (!question) question = '0';
+    results[question] = {
       answer: data.answer,
       result: data.difference
     };
@@ -159,7 +190,9 @@ class AppComponent extends React.Component {
       buttonsToShow.next = false;
     }
 
-    if (currentIndex >= totalQuestions) {
+    // console.log(this.state.results,this.state.results.length, totalQuestions, currentIndex);
+
+    if (currentIndex >= totalQuestions && !this.state.loading) {
       reportCard = (
         <ReportCard
           data={this.state.results}

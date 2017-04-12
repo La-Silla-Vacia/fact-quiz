@@ -1,6 +1,27 @@
 'use strict';
 import React from 'react';
 import cx from 'classnames';
+const MarkdownIt = require('markdown-it');
+const md = new MarkdownIt();
+
+// Remember old renderer, if overriden, or proxy to default renderer
+const defaultRender = md.renderer.rules.link_open || function (tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options);
+  };
+
+md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+  // If you are sure other plugins can't add `target` - drop check below
+  const aIndex = tokens[idx].attrIndex('target');
+
+  if (aIndex < 0) {
+    tokens[idx].attrPush(['target', '_blank']); // add new attribute
+  } else {
+    tokens[idx].attrs[aIndex][1] = '_blank';    // replace value of existing attr
+  }
+
+  // pass token to default renderer.
+  return defaultRender(tokens, idx, options, env, self);
+};
 
 import VoteArea from './VoteArea';
 
@@ -208,6 +229,18 @@ class QuestionComponent extends React.Component {
 
     let otherAnswers = this.getOtherAnswers();
 
+    const { explicacion } = this.props;
+    let formattedExplicacion = explicacion;
+    // if (typeof explicacion === 'string') {
+    if (explicacion) {
+      if (!formattedExplicacion.includes('Explicacion:') && !formattedExplicacion.includes('<p>')) {
+        formattedExplicacion = '**Explicacion:** ' + formattedExplicacion;
+      }
+    }
+    if (typeof explicacion === 'string' && !formattedExplicacion.includes('<p>')) {
+      formattedExplicacion = md.render(formattedExplicacion);
+    }
+
     return (
       <section
         className={cx(
@@ -215,9 +248,10 @@ class QuestionComponent extends React.Component {
           { 'Question__explanation--hidden': !this.state.showingResult }
         )}
       >
-        <article dangerouslySetInnerHTML={{ __html: this.props.explicacion }} />
+        <article dangerouslySetInnerHTML={{ __html: formattedExplicacion }} />
         {otherAnswers}
       </section>
+
     );
   }
 
@@ -360,7 +394,8 @@ class QuestionComponent extends React.Component {
       )}>
         <h3 className="Question__title">La afirmación:</h3>
         <div className="clearfix">
-          <blockquote className="Question__quote">{this.props.quote}</blockquote>
+          <blockquote className="Question__quote"
+                      dangerouslySetInnerHTML={{ __html: md.render(String(this.props.quote)) }} />
           <svg className="Question__logo" width="164px" height="177px" viewBox="0 0 164 177" version="1.1">
             <polygon className="Question__silla"
                      points="70 80.9275139 70.5154619 136.081934 74.6391568 136.597396 75.1546187 85.5666708 117.422492 96.3913701 118.453416 149.483943 123.092573 149.483943 123.608035 95.8759082 157.628518 84.535747 158.14398 128.350006 162.267675 128.350006 163.814061 8.76285183 117.937954 0 118.453416 66.4945815" />

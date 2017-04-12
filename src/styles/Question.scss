@@ -34,6 +34,25 @@
     max-width: 19em;
     float: left;
 
+    p {
+      display: inline;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-weight: 700 !important;
+      font-size: 20px !important;
+      line-height: 1.4em !important;
+
+      a {
+        color: #44a5db;
+        text-transform: uppercase;
+        font-family: Roboto, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        display: inline-block;
+      }
+    }
+
     &::before,
     &::after {
       position: relative;

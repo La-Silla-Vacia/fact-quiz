@@ -99,40 +99,42 @@ class QuestionComponent extends React.Component {
   getScores() {
     let url = 'https://detector-de-mentiras-69bb7.firebaseio.com/scores.json';
     if (typeof lsviContentId !== 'undefined') {
+      console.log('Content id found');
       url = `https://detector-de-mentiras-69bb7.firebaseio.com/scores/${lsviContentId}.json`;
-    }
+      fetch(url)
+        .then((result) => {
+          return result.json();
+        }).then((result) => {
 
-    fetch(url)
-      .then((result) => {
-        return result.json();
-      }).then((result) => {
-
-      const questions = [];
-      let i = 0;
-      for (let [key, val] of Object.entries(result)) {
-        if (!val.perQuestion) continue;
-        let index = 0;
-        for (let key of val.perQuestion) {
-          if (key) {
-            const score = key.answer;
-            if (score) {
-              if (!questions[index]) questions[index] = {};
-              if (questions[index][score]) {
-                questions[index][score]++;
-              } else {
-                questions[index][score] = 1;
+        const questions = [];
+        let i = 0;
+        for (let [key, val] of Object.entries(result)) {
+          if (!val.perQuestion) continue;
+          let index = 0;
+          for (let key of val.perQuestion) {
+            if (key) {
+              const score = key.answer;
+              if (score) {
+                if (!questions[index]) questions[index] = {};
+                if (questions[index][score]) {
+                  questions[index][score]++;
+                } else {
+                  questions[index][score] = 1;
+                }
+                index++;
               }
-              index++;
             }
           }
+          i++;
         }
-        i++;
-      }
 
-      console.log(`Total answers: ${i}`);
+        console.log(`Total answers: ${i}`);
 
-      this.setState({ allScores: questions, totalAnswers: i });
-    });
+        this.setState({ allScores: questions, totalAnswers: i });
+      });
+    } else {
+      console.log('Content id not found');
+    }
   }
 
   watchKeys() {

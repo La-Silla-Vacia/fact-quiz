@@ -46,24 +46,29 @@ class AppComponent extends React.Component {
     this.handleShowAll = this.handleShowAll.bind(this);
   }
 
+  componentWillMount() {
+    this.setShortLink();
+  }
+
   componentDidMount() {
     this.getData();
     // this.setupFirebase();
     // const hash = Number(window.location.hash.replace('#', ''));
     // if (hash) this.setState({currentQuestionIndex: hash - 1});
-
-    this.setShortLink();
   }
 
   setShortLink() {
+    console.log('Getting content id');
     const head = document.head || document.getElementsByTagName('head')[0];
     const links = head.getElementsByTagName('link');
     for (let link in links) {
       if (links.hasOwnProperty(link)) {
         const l = links[link];
+        console.log('Looking for shortlink');
         if (l.rel === 'shortlink') {
           const url = l.href.split('/');
           const contentId = url[url.length - 1];
+          console.log('Saving content id');
           window.lsviContentId = contentId;
         }
       }

@@ -7,7 +7,7 @@
 		"uuidString": "901C1D2E-B4E8-4B87-BBD3-65844BA52EC1"
 		}
 	],
-"creatorBuild": "25704",
+"creatorBuild": "25813",
 "files": {
 	"\/assets\/0732cf87466d3452e930dc5a6a965496.svg": {
 		"ft": 2097152,
@@ -32,11 +32,12 @@
 	"\/assets\/1146379055fca0c2a4e61a7bd74f0e05.png": {
 		"ft": 32768,
 		"iS": 32026,
-		"l": 1,
 		"oA": 0,
 		"oAP": "\/assets\/1146379055fca0c2a4e61a7bd74f0e05.png",
 		"oF": 0,
+		"oIPL": 0,
 		"opt": 1,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/2241453a50cf166097f425509adffcf9.svg": {
@@ -52,11 +53,12 @@
 	"\/assets\/290e7f2ab7d60d34631660c251522163.png": {
 		"ft": 32768,
 		"iS": 33362,
-		"l": 1,
 		"oA": 0,
 		"oAP": "\/assets\/290e7f2ab7d60d34631660c251522163.png",
 		"oF": 0,
+		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/35356f84de391914eaabf846becb5511.svg": {
@@ -82,21 +84,23 @@
 	"\/assets\/5ae519ea0135c44f1223ae28caab8900.png": {
 		"ft": 32768,
 		"iS": 33891,
-		"l": 1,
 		"oA": 0,
 		"oAP": "\/assets\/5ae519ea0135c44f1223ae28caab8900.png",
 		"oF": 0,
+		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/651750ba2da111a1bbfe1d50e784e586.png": {
 		"ft": 32768,
 		"iS": 31615,
-		"l": 1,
 		"oA": 0,
 		"oAP": "\/assets\/651750ba2da111a1bbfe1d50e784e586.png",
 		"oF": 0,
+		"oIPL": 0,
 		"opt": 1,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/69c65cffe2f297cc62ddad30554a0c42.svg": {
@@ -112,21 +116,23 @@
 	"\/assets\/727a1a9bc4b85b7762fd0f03edb09761.png": {
 		"ft": 32768,
 		"iS": 31952,
-		"l": 1,
 		"oA": 0,
 		"oAP": "\/assets\/727a1a9bc4b85b7762fd0f03edb09761.png",
 		"oF": 0,
+		"oIPL": 0,
 		"opt": 1,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/a051684cb0e5a27a09274f1ce3f1c0c7.png": {
 		"ft": 32768,
 		"iS": 32546,
-		"l": 1,
 		"oA": 0,
 		"oAP": "\/assets\/a051684cb0e5a27a09274f1ce3f1c0c7.png",
 		"oF": 0,
+		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/aa75ee768ac4f1aeb4f0c5c4126375f7.svg": {
@@ -166,11 +172,12 @@
 	"\/assets\/c0b5258ee44fa5cc3849aa16473f912c.png": {
 		"ft": 32768,
 		"iS": 34006,
-		"l": 1,
 		"oA": 0,
 		"oAP": "\/assets\/c0b5258ee44fa5cc3849aa16473f912c.png",
 		"oF": 0,
+		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/e3b8920ead0afef0f6b5d8afadfacf67.svg": {
@@ -1246,6 +1253,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"no-prototype-builtins": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-redeclare": {
 			"active": 1,
 			"optionString": "{'builtinGlobals': false}"
@@ -2070,14 +2081,6 @@
 		"orderOutput": 0,
 		"outputStyle": 1
 		},
-	"languageDefaultsJSX": {
-		"autoOutputAction": 0,
-		"autoOutputPathFilenamePattern": "*.js",
-		"autoOutputPathRelativePath": "",
-		"autoOutputPathReplace1": "jsx",
-		"autoOutputPathReplace2": "js",
-		"autoOutputPathStyle": 0
-		},
 	"languageDefaultsKIT": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.html",
@@ -2140,7 +2143,7 @@
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
-		"enableLossy": 1,
+		"optimizerType": 1,
 		"quality": 100
 		},
 	"languageDefaultsPUG": {

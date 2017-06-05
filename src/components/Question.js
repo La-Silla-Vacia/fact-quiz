@@ -335,7 +335,7 @@ class QuestionComponent extends React.Component {
 
           return (
             <tr key={index}
-                className={cx({ 'Question--is-the-answer': (this.props.score === index + 1) })}>
+                className={cx({ 'Question--is-the-answer': (this.props.score === index) })}>
               <td>{ scoreName }</td>
               <td>{ percentage }%</td>
             </tr>

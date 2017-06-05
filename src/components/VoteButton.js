@@ -17,8 +17,13 @@ class ButtonComponent extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
+    if (e.target.classList.contains('VoteButton__showDescription')) return;
     this.props.callback(this.props.value);
+  }
+
+  handleDescriptionClick() {
+
   }
 
   render() {
@@ -26,14 +31,16 @@ class ButtonComponent extends React.Component {
       <button
         className={cx(
           'VoteButton',
-          {'VoteButton--selected': this.props.active},
-          {'VoteButton--this-is-it': this.props.thisIsIt == 1}
+          { 'VoteButton--selected': this.props.active },
+          { 'VoteButton--this-is-it': this.props.thisIsIt == 1 }
         )}
         onClick={this.handleClick}
       >
-            <span className="VoteButton__content">
-              {this.props.name}
-            </span>
+        <div className="VoteButton__content">
+          {this.props.name}
+          <div onClick={this.handleDescriptionClick} className="VoteButton__showDescription">?</div>
+          <div className="VoteButton__description">{this.props.name}: {this.props.meaning}</div>
+        </div>
       </button>
     );
   }

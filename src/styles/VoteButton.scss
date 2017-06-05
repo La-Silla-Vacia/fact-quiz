@@ -52,7 +52,7 @@
     color: #00FF99;
     transition-delay: 0.6s;
     cursor: default;
-    span {
+    .VoteButton__content {
       top: 0;
       color: $brand-white;
       background-color: $theme-color;
@@ -64,15 +64,24 @@
       letter-spacing: 2px;
       transform: translateX(-50%) translateY(-20%);
       transition-delay: $transition-delay;
+
+      .VoteButton__showDescription {
+        display: none;
+      }
+
       @media screen and (max-width: $screen-md-min) {
         left: 0;
         padding: 10px 20px;
+      }
+
+      @media screen and (max-width: $breakpoint) {
+        transform: translateX(0) translateY(-20%);
       }
     }
   }
 
   &__this-is-it .Vote-button__content {
-      top: 0;
+    top: 0;
   }
 
   &__content {
@@ -86,6 +95,7 @@
     font-size: 14px;
     font-weight: 300;
     color: black;
+    display: inline-block;
 
     @media screen and (max-width: 1090px) and (min-width: 992px) {
       font-size: .9em;
@@ -97,6 +107,43 @@
       left: 2.5em;
       transform: inherit;
     }
+
+    &:hover .VoteButton__description {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__showDescription {
+    width: 1.25em;
+    height: 1.25em;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 0.5em;
+
+    @media screen and (min-width: $breakpoint) {
+      display: none;
+    }
+  }
+
+  &__description {
+    display: block;
+    opacity: 0;
+    border-radius: 3px;
+    width: 20em;
+    padding: 1em;
+    white-space: normal;
+    background-color: #ddd;
+    visibility: hidden;
+    transition: .2s;
+    transform: translateY(-2em);
+    pointer-events: none;
+    text-align: left;
+    left: 0;
+    position: absolute;
+    z-index: 5;
   }
 }
 
@@ -135,6 +182,7 @@
     color: $text-color;
   }
 }
+
 @keyframes blinkBg {
   0% {
     background-color: $text-color;

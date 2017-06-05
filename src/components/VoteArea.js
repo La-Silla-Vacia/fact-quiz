@@ -3,52 +3,22 @@ import React from 'react';
 import cx from 'classnames';
 import Button from './VoteButton';
 
+import buttons from '../sources/buttons';
+
 require('styles/VoteArea.scss');
 
 class VoteButtonComponent extends React.Component {
 
   static defaultProps = {
-    buttons: [
-      {
-        'name': 'Cierto',
-        'value': 1
-      },
-      {
-        'name': 'Cierto pero',
-        'value': 2
-      },
-      {
-        'name': 'Apresurado',
-        'value': 3
-      },
-      {
-        'name': 'Debatible',
-        'value': 4
-      },
-      {
-        'name': 'Exagerado',
-        'value': 5
-      },
-      {
-        'name': 'Engañoso',
-        'value': 6
-      },
-      {
-        'name': 'Falso',
-        'value': 7
-      },
-      {
-        'name': 'Inchequeable',
-        'value': 8
-      }
-    ]
+    buttons
   };
 
   constructor() {
     super();
 
     this.state = {
-      selected: false
+      selected: false,
+      showConventions: false
     };
 
     this.setInchequable = this.setInchequable.bind(this);
@@ -65,6 +35,7 @@ class VoteButtonComponent extends React.Component {
   }
 
   getButtons() {
+    // console.log(this.props);
     return this.props.buttons.map((button, index) => {
       let active = false,
         thisIsIt = false;
@@ -73,7 +44,9 @@ class VoteButtonComponent extends React.Component {
       }
 
       if (this.props.showResult) {
-        if (button.value === this.props.score) {
+        // console.log(this.props.score, button.value);
+        if (Number(button.value) === Number(this.props.score)) {
+          // console.log('this');
           thisIsIt = true;
         } else {
           thisIsIt = 2;
@@ -130,7 +103,6 @@ class VoteButtonComponent extends React.Component {
           'VoteArea__footer',
           { 'VoteArea__footer--hidden': this.props.showResult },
         )}>
-          {/*<small>- O -</small>*/}
           <button onClick={this.setInchequable}
                   className={cx(
                     'VoteArea__button',

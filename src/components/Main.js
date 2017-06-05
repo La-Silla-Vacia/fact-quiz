@@ -10,6 +10,8 @@ import PrevNext from './PrevNext';
 import ReportCard from './ReportCard';
 import SingleCheck from './SingleCheck';
 
+import buttons from '../sources/buttons';
+
 const config = {
   apiKey: 'AIzaSyBl-pcS2XqyKb-79QuQvsIwsWJ1Zx693i4',
   authDomain: 'detector-de-mentiras-69bb7.firebaseapp.com',
@@ -36,7 +38,8 @@ class AppComponent extends React.Component {
       introText: false,
       title: false,
       showAll: false,
-      loading: true
+      loading: true,
+      showDefinitions: false
     };
 
     this.prevNext = this.prevNext.bind(this);
@@ -44,6 +47,7 @@ class AppComponent extends React.Component {
     this.nextQuestion = this.nextQuestion.bind(this);
     this.saveData = this.saveData.bind(this);
     this.handleShowAll = this.handleShowAll.bind(this);
+    this.handleShowDefinitions = this.handleShowDefinitions.bind(this);
   }
 
   componentWillMount() {
@@ -102,10 +106,14 @@ class AppComponent extends React.Component {
     let title = false;
     if (sillaInteractiveData.title) title = sillaInteractiveData.title;
 
+    if (sillaInteractiveData.type === "list") {
+      this.setState({ showAll: true });
+    }
+
     if (sillaInteractiveData.data) {
       this.setState({ questions: sillaInteractiveData.data, introText, title, loading: false });
     } else if (sillaInteractiveData.dataUrl) {
-      this.setState({introText, title});
+      this.setState({ introText, title });
       this.fetchData(sillaInteractiveData.dataUrl);
     }
   }
@@ -116,16 +124,16 @@ class AppComponent extends React.Component {
         return response.json()
       }).then((json) => {
       const questions = [];
-      json.map((question) => {
+      json.map((question, index) => {
         const thisQ = {
-          id: question.id,
+          id: index,
           quote: question.afirmacion,
           explicacion: question.explicacion,
           score: question.score
         };
         questions.push(thisQ);
       });
-      this.setState({questions, loading: false});
+      this.setState({ questions, loading: false });
     }).catch((ex) => {
       this.setState({ error: 'Error: No se pudieron encontrar los datos de la pregunta.' });
       console.log('parsing failed', ex);
@@ -173,7 +181,12 @@ class AppComponent extends React.Component {
     this.setState({ showAll: !this.state.showAll });
   }
 
+  handleShowDefinitions() {
+    this.setState({ showDefinitions: !this.state.showDefinitions });
+  }
+
   render() {
+    const { showDefinitions } = this.state;
     const currentIndex = this.state.currentQuestionIndex;
     const totalQuestions = this.state.questions.length;
     const errorMessage = this.state.error;
@@ -194,8 +207,6 @@ class AppComponent extends React.Component {
       this.state.results.length <= currentIndex) {
       buttonsToShow.next = false;
     }
-
-    // console.log(this.state.results,this.state.results.length, totalQuestions, currentIndex);
 
     if (currentIndex >= totalQuestions && !this.state.loading) {
       reportCard = (
@@ -243,11 +254,54 @@ class AppComponent extends React.Component {
     }
 
     const everyting = this.getEverything();
+    const definitionTable = (
+      <table className="table index__defination-table">
+        <tbody>
+        <tr>
+          <td>{buttons[0].name}</td>
+          <td>{buttons[0].meaning}</td>
+        </tr>
+        <tr>
+          <td>{buttons[1].name}</td>
+          <td>{buttons[1].meaning}</td>
+        </tr>
+        <tr>
+          <td>{buttons[2].name}</td>
+          <td>{buttons[2].meaning}</td>
+        </tr>
+        <tr>
+          <td>{buttons[3].name}</td>
+          <td>{buttons[3].meaning}</td>
+        </tr>
+        <tr>
+          <td>{buttons[4].name}</td>
+          <td>{buttons[4].meaning}</td>
+        </tr>
+        <tr>
+          <td>{buttons[5].name}</td>
+          <td>{buttons[5].meaning}</td>
+        </tr>
+        <tr>
+          <td>{buttons[6].name}</td>
+          <td>{buttons[6].meaning}</td>
+        </tr>
+        <tr>
+          <td>{buttons[7].name}</td>
+          <td>{buttons[7].meaning}</td>
+        </tr>
+        </tbody>
+      </table>
+    );
     let introPiece = (
       <div className="title col-sm-12 col-md-4 index__introtext">
         <span />
         <h2><a href="#">{ this.state.introText.title }</a></h2>
         <div dangerouslySetInnerHTML={{ __html: this.state.introText.content }} />
+
+        <button onClick={this.handleShowDefinitions} className="index__showAll index__showDefinitions">
+          Qué es cada calificación
+        </button>
+        {(showDefinitions) ? definitionTable : false}
       </div>
     );
 
@@ -258,7 +312,7 @@ class AppComponent extends React.Component {
         {reportCard}
         {questionObj}
 
-        <button onClick={this.handleShowAll} className="index__showAll">Quiero ver todas las respuestas</button>
+        <button onClick={this.handleShowAll} className="index__showAll">No me haga trabajar, muéstreme todo</button>
       </div>
     );
     if (this.state.showAll) {
@@ -266,7 +320,7 @@ class AppComponent extends React.Component {
       dataContent = (
         <div className="index__inner col-sm-12 col-md-10">
           {everyting}
-          <button onClick={this.handleShowAll} className="index__showAll">Quiero que el cuestionario ver</button>
+          <button onClick={this.handleShowAll} className="index__showAll">Quiero ver el cuestionario</button>
         </div>
       )
     }
@@ -276,10 +330,7 @@ class AppComponent extends React.Component {
       <div className="index">
         <div className="row" style={{ margin: 0 }}>
           {introPiece}
-
           {title}
-
-
           {dataContent}
         </div>
       </div>

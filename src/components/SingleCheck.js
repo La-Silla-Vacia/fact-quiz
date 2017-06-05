@@ -85,13 +85,13 @@ export default class SingleCheck extends React.Component {
       }
     }
     if (typeof explicacion === 'string' && !formattedExplicacion.includes('<p>')) {
-      formattedExplicacion = md.render(formattedExplicacion);
+      formattedExplicacion = md.render(formattedExplicacion + '"');
     }
 
     return(
       <div className="article-checked">
         <div className="checked">
-          <div className="left-container col-sm-5" dangerouslySetInnerHTML={{__html: md.render(quote)}} />
+          <div className="left-container col-sm-5" dangerouslySetInnerHTML={{__html: md.render('"' + quote + '"')}} />
 
           <div className="right-container col-sm-7">
             <div className="check">{formattedScore}</div>

@@ -80,12 +80,12 @@ export default class SingleCheck extends React.Component {
     let formattedExplicacion = explicacion;
     // if (typeof explicacion === 'string') {
     if (explicacion) {
-      if (!formattedExplicacion.includes('Explicacion:') && !formattedExplicacion.includes('<p>')) {
-        formattedExplicacion = '**Explicacion:** ' + formattedExplicacion;
+      if (!formattedExplicacion.includes('Explicación:') && !formattedExplicacion.includes('<p>')) {
+        formattedExplicacion = '**Explicación:** ' + formattedExplicacion;
       }
     }
     if (typeof explicacion === 'string' && !formattedExplicacion.includes('<p>')) {
-      formattedExplicacion = md.render(formattedExplicacion + '"');
+      formattedExplicacion = md.render(formattedExplicacion);
     }
 
     return(
